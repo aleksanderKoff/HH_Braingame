@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
+    public Rigidbody2D rb;
+    public BoxCollider2D coll;
     
-    [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] public LayerMask jumpableGround;
 
 
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float jumpForce = 14f;
+    [SerializeField] public float moveSpeed = 7f;
+    [SerializeField] public float jumpForce = 14f;
 
    
     // Start is called before the first frame update
@@ -29,11 +29,15 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.velocity = new Vector2(0, jumpForce);
+            Jump();
         }
     }
+    public void Jump()
+    {
+        rb.velocity = new Vector2(0, jumpForce);
+    }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
