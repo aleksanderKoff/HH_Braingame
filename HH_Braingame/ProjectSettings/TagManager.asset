@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - CamBound
+=======
+  - MoveScript
+>>>>>>> 661ecee18794ea5a0dc08076d8796de490690228
   layers:
   - Default
   - TransparentFX
