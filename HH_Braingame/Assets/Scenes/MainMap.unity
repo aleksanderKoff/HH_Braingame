@@ -554,8 +554,9 @@ GameObject:
   - component: {fileID: 382431086}
   - component: {fileID: 382431088}
   - component: {fileID: 382431087}
+  - component: {fileID: 382431089}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Instruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -195, y: -195}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382431087
 MonoBehaviour:
@@ -622,6 +623,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382431085}
   m_CullTransparentMesh: 1
+--- !u!114 &382431089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382431085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20082862df95a044c8b303ac84cd63d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instructionText: {fileID: 0}
+  textColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &469445768
 GameObject:
   m_ObjectHideFlags: 0
