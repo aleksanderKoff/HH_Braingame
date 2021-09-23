@@ -25,9 +25,10 @@ public class ReactionProblemCheck : MonoBehaviour
     // checks if the player hit the collider
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("COLLIDED");
-        if (other.tag == "Player")
+        
+        if (other.tag == "Player" && gameObject.tag == "Trigger")
         {
+            Debug.Log("COLLIDED");
             StartCoroutine(CheckPress());
         }
     }
