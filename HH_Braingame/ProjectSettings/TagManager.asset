@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CamBound
+  - Trigger
   layers:
   - Default
   - TransparentFX
