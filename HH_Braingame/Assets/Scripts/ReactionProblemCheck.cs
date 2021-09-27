@@ -5,10 +5,14 @@ using UnityEngine;
 public class ReactionProblemCheck : MonoBehaviour
 {
     PlayerMovement move;
+    DisplayChallenge display;
     // Start is called before the first frame update
     void Start()
     {
         move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        
+        display = GameObject.FindGameObjectWithTag("Player").
+        GetComponent<DisplayChallenge>();
 
     }
 
@@ -42,6 +46,7 @@ public class ReactionProblemCheck : MonoBehaviour
             while (success == false && timer > 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
+                display.DisplayButton("R");
                 success = Input.GetKeyDown(KeyCode.R);
                 yield return null;
             }
@@ -56,6 +61,7 @@ public class ReactionProblemCheck : MonoBehaviour
             {
                 timer -= Time.deltaTime; // reduce timer 
                 success = Input.GetKeyDown(KeyCode.V);
+                display.DisplayButton("V");
                 yield return null;
             }
             if (success == false)
@@ -66,6 +72,7 @@ public class ReactionProblemCheck : MonoBehaviour
 
             Debug.Log("Won");
             move.Jump();
+            display.DisplayButton("");
             break;
         }
     }
