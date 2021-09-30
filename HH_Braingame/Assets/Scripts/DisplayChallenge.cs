@@ -16,4 +16,9 @@ public class DisplayChallenge : MonoBehaviour
     {
         challenge.text = character;
     }
+
+    public void Clear()
+    {
+        challenge.text = "";
+    }
 }
