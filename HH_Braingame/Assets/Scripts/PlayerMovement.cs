@@ -6,13 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public BoxCollider2D coll;
-    
+    float angle = 0;
+
     [SerializeField] public LayerMask jumpableGround;
 
 
     [SerializeField] public float moveSpeed = 7f;
     [SerializeField] public float jumpForce = 14f;
-    float angle;
+  
 
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        
     }
 
     // Update is called once per frame
@@ -48,21 +50,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void TurnCharacter()
     {
-        int layerMask = 1 << 8; //määrittää mikä layer otetaan mukaan layermaskiin joka annetaan Raycastille, tässä tapauksessa 'Platform' rayvast katsoo ainoastaan tätä layeria sitten
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.2f, 0, 0), -transform.up, Mathf.Infinity, layerMask);
+        
+        int layerMask = 1 << 8; //määrittää mikä layer otetaan mukaan layermaskiin joka annetaan Raycastille, tässä tapauksessa 'Platform'. raycast katsoo ainoastaan tätä layeria sitten
+        
+        RaycastHit2D frontSensor = Physics2D.Raycast(transform.position + new Vector3(0.7f, 0, 0), -transform.up, 2, layerMask);
+        RaycastHit2D backSensor = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0, 0), -transform.up, 2, layerMask);
 
-        angle = Vector3.Angle(hit.normal, new Vector3(0, 1, 0));
 
-        if (hit.normal.x > 0)
-        {
-            angle = -angle;
-        }
+        if (frontSensor.normal.x > 0 && backSensor.normal.x > 0 && Mathf.Abs(frontSensor.normal.x - backSensor.normal.x) < 0.05)
+            angle = -Vector3.Angle(frontSensor.normal, new Vector3(0, 1, 0));
+        else if (frontSensor.normal.x < 0 && backSensor.normal.x < 0 && Mathf.Abs(frontSensor.normal.x - backSensor.normal.x) < 0.05)
+            angle = Vector3.Angle(frontSensor.normal, new Vector3(0, 1, 0));
 
+        if (angle<=45 && angle>=-45)
         transform.rotation = Quaternion.Euler(0, 0, angle); 
 
         //Vector3 forward = transform.TransformDirection(Vector3.forward) * 20;
-        //Debug.DrawRay(transform.position + new Vector3(0.7f, 0, 0), -transform.up, Color.red); 
-
+        //Debug.DrawRay(transform.position + new Vector3(0.7f, 0, 0), -transform.up, Color.red);
         //Näillä saa näkyvän DrawRay:n jos haluaa alkaa vielä jotain debuggailemaan
 
 
