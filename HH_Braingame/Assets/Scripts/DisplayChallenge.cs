@@ -7,8 +7,13 @@ public class DisplayChallenge : MonoBehaviour
 {
     [SerializeField] public Text challenge;
 
-    public void DisplayButton(string key1, string blank, string key2)
+    public void TwoCharacters(string key1, string blank, string key2)
     {
         challenge.text = key1 + blank + key2;
     } 
+
+    public void OneCharacter(string character)
+    {
+        challenge.text = character;
+    }
 }

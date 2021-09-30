@@ -13,8 +13,6 @@ public class ReactionProblemCheck : MonoBehaviour
         // Init jump,  method
         move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
-
-        
     }
 
     // Update is called once per frame
@@ -67,11 +65,8 @@ public class ReactionProblemCheck : MonoBehaviour
     IEnumerator CheckPress()
     {
         string[] ui_values = AbcRandomizer();
+        Debug.Log("ui_values:" + ui_values[0] + "(" + ui_values[1] + ")" + ui_values[2]);
         
-
-        Debug.Log("ui_values1:" + ui_values[0] + "(" + ui_values[1] + ")" + ui_values[2]);
-        
-
         while (true)
         {
             //Init timer, success condition
@@ -82,7 +77,7 @@ public class ReactionProblemCheck : MonoBehaviour
             while (success == false && timer > 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
-                display.DisplayButton(ui_values[0], " _ ", ui_values[2]);
+                display.TwoCharacters(ui_values[0], "    _    ", ui_values[2]);
                 success = Input.GetKeyDown(Convert(ui_values[1]));
                 yield return null;
             }
@@ -95,7 +90,7 @@ public class ReactionProblemCheck : MonoBehaviour
             //Else success
             Debug.Log("Won");
             move.Jump();
-            display.DisplayButton("", "", "");
+            display.OneCharacter("");
             break;
         }
     }
