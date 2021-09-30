@@ -13,6 +13,8 @@ public class ReactionProblemCheck : MonoBehaviour
         // Init jump,  method
         move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
+
+        
     }
 
     // Update is called once per frame
@@ -44,6 +46,13 @@ public class ReactionProblemCheck : MonoBehaviour
         return result;
     }
 
+    //Convert string to KeyCode
+    KeyCode Convert(string key)
+    {
+        KeyCode keyCode = (KeyCode) System.Enum.Parse(typeof(KeyCode), key);
+        return keyCode;
+    }
+
     //Check if the player hit the collider
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -58,6 +67,10 @@ public class ReactionProblemCheck : MonoBehaviour
     IEnumerator CheckPress()
     {
         string[] ui_values = AbcRandomizer();
+        
+
+        Debug.Log("ui_values1:" + ui_values[0] + "(" + ui_values[1] + ")" + ui_values[2]);
+        
 
         while (true)
         {
@@ -69,27 +82,8 @@ public class ReactionProblemCheck : MonoBehaviour
             while (success == false && timer > 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
-                display.DisplayButton(ui_values[0]);
-                success = Input.GetKeyDown(KeyCode.R);
-                Debug.Log("KeyCode ToString: " + KeyCode.R.ToString());
-                yield return null;
-            }
-            if (success == false)
-            {
-                Debug.Log("Lost");
-                yield break;
-            }
-
-            //Reset timer, success condition
-            success = false;
-            timer = 1.75f;
-
-            //Check 2nd trial
-            while (success == false && timer > 0f)
-            {
-                timer -= Time.deltaTime; // reduce timer 
-                success = Input.GetKeyDown(KeyCode.V);
-                display.DisplayButton(ui_values[2]);
+                display.DisplayButton(ui_values[0], " _ ", ui_values[2]);
+                success = Input.GetKeyDown(Convert(ui_values[1]));
                 yield return null;
             }
             if (success == false)
@@ -101,7 +95,7 @@ public class ReactionProblemCheck : MonoBehaviour
             //Else success
             Debug.Log("Won");
             move.Jump();
-            display.DisplayButton("");
+            display.DisplayButton("", "", "");
             break;
         }
     }
