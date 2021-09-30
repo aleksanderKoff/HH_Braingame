@@ -59,4 +59,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 #Custom
-HH_Braingame/HH_Braingame/Assets/Scenes
+Scenes/*
