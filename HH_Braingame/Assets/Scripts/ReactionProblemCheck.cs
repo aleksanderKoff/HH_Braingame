@@ -10,6 +10,8 @@ public class ReactionProblemCheck : MonoBehaviour
     UnityEngine.UI.Button button2;
     UnityEngine.UI.Button button3;
 
+    public float timer = 1.75f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,11 +84,11 @@ public class ReactionProblemCheck : MonoBehaviour
         if (other.tag == "Player" && gameObject.tag == "Trigger")
         {
             Debug.Log("COLLIDED");
-            StartCoroutine(CheckPress());
+            StartCoroutine(CheckPress(timer));
         }
     }
 
-    IEnumerator CheckPress()
+    IEnumerator CheckPress(float timer)
     {
         // REFAKTOROI
         string[] ui_values = AbcRandomizer();
@@ -94,8 +96,7 @@ public class ReactionProblemCheck : MonoBehaviour
         
         while (true)
         {
-            //Init timer, success condition
-            float timer = 1.75f;
+            //Init success condition
             bool success = false;
 
             //Check 1st trial
