@@ -9,7 +9,7 @@ public class ReactionProblemCheck : MonoBehaviour
     UnityEngine.UI.Button button2;
     UnityEngine.UI.Button button3;
 
-    public bool jumpSuccess;
+    public bool jumpSuccess = false;
 
     // Start is called before the first frame update
     void Start()

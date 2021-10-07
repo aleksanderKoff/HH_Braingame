@@ -52,17 +52,17 @@ public class PlayerMovement : MonoBehaviour
     //Check if the player hit the collider
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (gameObject.tag == "Player" && other.tag == "Trigger" && !jumpSuccess)
+        if (gameObject.tag == "Player" && other.gameObject.name == "TriggerSpot" && !jumpSuccess)
         {
             Debug.Log("COLLIDED");
             StartCoroutine(rpc.CheckPress(timer));
         }
 
-        if (other.tag == "Trigger")
+        if (other.gameObject.name == "JumpSpot")
         {
             Debug.Log("Hyppy Spotti");
 
-            if (gameObject.tag == "Player" && other.tag == "Trigger" && jumpSuccess)
+            if (gameObject.tag == "Player" && other.gameObject.name == "JumpSpot" && jumpSuccess)
             {
                 Debug.Log("JUMP COMMENCE");
                 Jump();
