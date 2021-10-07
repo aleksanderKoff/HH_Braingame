@@ -103,8 +103,9 @@ public class ReactionProblemCheck : MonoBehaviour
             while (success == false && timer > 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
-                display.TwoCharacters(ui_values[0], "        _        ", ui_values[2]); // 2 tabs + 2-2 spaces
-                //Set buttons visible
+                // display abc puzzle
+                display.Abc_puzzle(ui_values[0], ui_values[2]);
+                // Set buttons visible
                 ButtonSetTrue(button1, button2, button3);
                 success = Input.GetKeyDown(Convert(ui_values[1]));
                 yield return null;
