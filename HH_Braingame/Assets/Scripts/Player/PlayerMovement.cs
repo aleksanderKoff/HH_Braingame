@@ -6,6 +6,13 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public BoxCollider2D coll;
+
+    public GameObject triggerSpot;
+    ReactionProblemCheck rpc;
+
+    bool jumpSuccess;
+    public float timer = 1.75f;
+
     float angle = 0;
 
     [SerializeField] public LayerMask jumpableGround;
@@ -20,11 +27,17 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+
+        triggerSpot = GameObject.Find("TriggerSpot");
+        rpc = triggerSpot.GetComponent<ReactionProblemCheck>();
+
+        
     }
 
     // Update is called once per frame
     private void Update()
     {
+        jumpSuccess = rpc.jumpSuccess;
 
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         
@@ -35,6 +48,30 @@ public class PlayerMovement : MonoBehaviour
 
         TurnCharacter();
     }
+
+    //Check if the player hit the collider
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (gameObject.tag == "Player" && other.tag == "Trigger" && !jumpSuccess)
+        {
+            Debug.Log("COLLIDED");
+            StartCoroutine(rpc.CheckPress(timer));
+        }
+
+        if (other.tag == "Trigger")
+        {
+            Debug.Log("Hyppy Spotti");
+
+            if (gameObject.tag == "Player" && other.tag == "Trigger" && jumpSuccess)
+            {
+                Debug.Log("JUMP COMMENCE");
+                Jump();
+                jumpSuccess = false;
+            }
+        }
+
+    }
+
     public void Jump()
     {
         rb.velocity = new Vector2(0, jumpForce);
