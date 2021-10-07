@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CamBound
   - Trigger
+  - Instructions
   layers:
   - Default
   - TransparentFX

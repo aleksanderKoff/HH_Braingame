@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
@@ -34,6 +35,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         TurnCharacter();
+
+        if(GameObject.Find("InstructionBox") == null)
+            moveSpeed = 7f;
+        else if (GameObject.Find("InstructionBox").activeSelf)
+            StopCharacter();
+        
+
+
     }
     public void Jump()
     {
@@ -66,6 +75,11 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawRay(transform.position + new Vector3(0.7f, 0, 0), -transform.up, Color.red);
 
         //Näillä saa näkyvän DrawRay:n jos haluaa alkaa vielä jotain debuggailemaan
+    }
+
+    public void StopCharacter()
+    {
+        moveSpeed = 0;
     }
 
 
