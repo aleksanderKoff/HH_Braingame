@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-    [SerializeField] public LayerMask Clickable;
     private void Update()
     {
 
-        int layerMask = 1 << 10;
 
+        int layerMask = 1 << LayerMask.NameToLayer("Clickable");
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
