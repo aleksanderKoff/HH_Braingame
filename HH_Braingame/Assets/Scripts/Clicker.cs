@@ -18,6 +18,7 @@ public class Clicker : MonoBehaviour
             if (hit.collider != null)
             {
                 PrintName(hit.collider.gameObject);
+                DestroyObject(hit.collider.gameObject);
             }
         }
     }
@@ -25,5 +26,10 @@ public class Clicker : MonoBehaviour
     private void PrintName(GameObject go)
     {
         Debug.Log(go.name);
+    }
+
+    private void DestroyObject(GameObject go)
+    {
+        Destroy(go);
     }
 }
