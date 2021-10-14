@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-    
 
+    Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void Update()
     {
 
@@ -20,7 +25,8 @@ public class Clicker : MonoBehaviour
             if (hit.collider != null)
             {
                 PrintName(hit.collider.gameObject);
-                DestroyObject(hit.collider.gameObject);
+                anim.SetTrigger("Clicked");
+                // DestroyObject(hit.collider.gameObject);
             }
         }
     }
@@ -34,4 +40,6 @@ public class Clicker : MonoBehaviour
     {
         Destroy(go);
     }
+
+
 }
