@@ -7,6 +7,8 @@ TagManager:
   - CamBound
   - Trigger
   - Clickable
+  - FreezeCam
+  - FreezePlayer
   layers:
   - Default
   - TransparentFX
