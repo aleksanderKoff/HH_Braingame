@@ -62,6 +62,9 @@ TagManager:
   - name: Click
     uniqueID: 398270825
     locked: 0
+  - name: Projectile
+    uniqueID: 3466029419
+    locked: 0
   - name: Player
     uniqueID: 1052971567
     locked: 0
