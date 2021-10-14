@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Clicker : MonoBehaviour
 {
 
-    Animator anim;
+    public float time = 0.5f;
+    Cherry cherry;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        cherry = GameObject.FindGameObjectWithTag("Cherry").GetComponent<Cherry>();
     }
+    
     private void Update()
     {
 
@@ -24,22 +27,14 @@ public class Clicker : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
             if (hit.collider != null)
             {
-                PrintName(hit.collider.gameObject);
-                anim.SetTrigger("Clicked");
-                // DestroyObject(hit.collider.gameObject);
+                Cherry.PrintName(hit.collider.gameObject);
+                cherry.Itemfeedback(hit.collider.gameObject);
+                Cherry.DestroyObject(hit.collider.gameObject, time);
             }
         }
     }
 
-    private void PrintName(GameObject go)
-    {
-        Debug.Log(go.name);
-    }
-
-    private void DestroyObject(GameObject go)
-    {
-        Destroy(go);
-    }
+   
 
 
 }
