@@ -30,7 +30,7 @@ public class Cherry : MonoBehaviour
 
     public void Itemfeedback(GameObject go)
     {
-        go.anim.SetBool("Clicked", true);
+        anim.SetTrigger("Clicked");
     }
     
 }

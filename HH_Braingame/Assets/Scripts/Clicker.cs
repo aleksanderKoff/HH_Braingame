@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-
     public float time = 0.5f;
     Cherry cherry;
+    ScoreManager scoremanager;
 
     private void Start()
     {
         cherry = GameObject.FindGameObjectWithTag("Cherry").GetComponent<Cherry>();
+        scoremanager = GameObject.FindGameObjectWithTag("Score").GetComponent<ScoreManager>();
     }
     
     private void Update()
@@ -27,9 +28,11 @@ public class Clicker : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
             if (hit.collider != null)
             {
-                Cherry.PrintName(hit.collider.gameObject);
-                cherry.Itemfeedback(hit.collider.gameObject);
-                Cherry.DestroyObject(hit.collider.gameObject, time);
+                var hitobject = hit.collider.gameObject;
+                Cherry.PrintName(hitobject);
+                scoremanager.addToScore();
+                // cherry.Itemfeedback();
+                Cherry.DestroyObject(hitobject, time);
             }
         }
     }
