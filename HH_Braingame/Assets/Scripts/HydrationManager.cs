@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class HydrationManager : MonoBehaviour
 {
     [SerializeField] public Text hydration;
-    public float time = 30;
+    public float time = 15;
+
+    void Start()
+    {
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,7 +28,7 @@ public class HydrationManager : MonoBehaviour
 
     public void addToHydration()
     {
-        time += 10;
+        time += 1;
     }
 
     public void DisplayTime(float timeToDisplay)
@@ -34,7 +38,7 @@ public class HydrationManager : MonoBehaviour
             timeToDisplay = 0;
         }
 
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay);
         hydration.text = "Hydration:" + string.Format("{00}", seconds);
     }
 
