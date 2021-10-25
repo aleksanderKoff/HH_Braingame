@@ -7,12 +7,12 @@ public class Clicker : MonoBehaviour
 {
     public float time = 0.5f;
     Cherry cherry;
-    ScoreManager scoremanager;
+    HydrationManager hydrationmanager;
 
     private void Start()
     {
         cherry = GameObject.FindGameObjectWithTag("Cherry").GetComponent<Cherry>();
-        scoremanager = GameObject.FindGameObjectWithTag("Score").GetComponent<ScoreManager>();
+        hydrationmanager = GameObject.FindGameObjectWithTag("Score").GetComponent<HydrationManager>();
     }
     
     private void Update()
@@ -30,7 +30,7 @@ public class Clicker : MonoBehaviour
             {
                 var hitobject = hit.collider.gameObject;
                 Cherry.PrintName(hitobject);
-                scoremanager.addToScore();
+                hydrationmanager.addToHydration();
                 // cherry.Itemfeedback();
                 Cherry.DestroyObject(hitobject, time);
             }
