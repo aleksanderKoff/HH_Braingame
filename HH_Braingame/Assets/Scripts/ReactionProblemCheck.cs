@@ -33,7 +33,7 @@ public class ReactionProblemCheck : MonoBehaviour
 
     }
 
-    string[] AbcRandomizer()
+    public string[] AbcRandomizer()
     {
         // Lenght 26
         string[] abcArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};

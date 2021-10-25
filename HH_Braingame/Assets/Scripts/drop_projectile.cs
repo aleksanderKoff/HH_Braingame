@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class drop_projectile : MonoBehaviour
 {
+
+    public GameObject spawner;
+
+
+    ReactionProblemCheck randomizer;
 
     public Transform drop_position;
 
@@ -12,12 +18,13 @@ public class drop_projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("Drop", 1.0f, projectile_interval);
+        Initiate();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Initiate()
     {
+        InvokeRepeating("Drop", 1.0f, projectile_interval);
         
     }
 
