@@ -23,10 +23,10 @@ public class EsCan : MonoBehaviour
         Debug.Log(go.name);
     }
 
-    public static void DestroyObject(GameObject go, float time)
+    public static void DestroyObject(GameObject go)
     {
         // Kills player
-        Destroy(go, time);
+        Destroy(go);
     }
 
     public void Itemfeedback(GameObject go)

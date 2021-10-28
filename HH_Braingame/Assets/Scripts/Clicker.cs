@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-    public float time = 0.5f;
+    public float time = 0.1f;
     EsCan esCan;
     HydrationManager hydrationmanager;
 
@@ -35,7 +35,7 @@ public class Clicker : MonoBehaviour
                 hydrationmanager.addToHydration();
                 // TODO: Exit animation ei toiminnassa
                 // esCan.Itemfeedback();
-                EsCan.DestroyObject(hitobject, time);
+                EsCan.DestroyObject(hitobject);
             }
         }
     }
