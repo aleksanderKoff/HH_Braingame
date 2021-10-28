@@ -12,7 +12,7 @@ public class StopPlayer : MonoBehaviour
     void Start()
     {
         GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>().enabled = false;
-        GameObject.Find("Projectile 1").GetComponent<DestroyProjectile>().enabled = false;
+        projectile.GetComponent<DestroyProjectile>().enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
