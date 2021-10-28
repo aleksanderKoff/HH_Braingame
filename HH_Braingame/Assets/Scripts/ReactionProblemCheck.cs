@@ -16,15 +16,15 @@ public class ReactionProblemCheck : MonoBehaviour
     void Start()
     {
         // Init jump,  method
-        move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        // move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
-        display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
+        // display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
         //Init buttons
-        button1 = GameObject.Find("Button").GetComponent<UnityEngine.UI.Button>();
-        button2 = GameObject.Find("Button (1)").GetComponent<UnityEngine.UI.Button>();
-        button3 = GameObject.Find("Button (2)").GetComponent<UnityEngine.UI.Button>();
+        // button1 = GameObject.Find("Button").GetComponent<UnityEngine.UI.Button>();
+        // button2 = GameObject.Find("Button (1)").GetComponent<UnityEngine.UI.Button>();
+        // button3 = GameObject.Find("Button (2)").GetComponent<UnityEngine.UI.Button>();
         //Set buttons invisible
-        ButtonSetFalse(button1, button2, button3);
+        // ButtonSetFalse(button1, button2, button3);
     }
 
     // Update is called once per frame
