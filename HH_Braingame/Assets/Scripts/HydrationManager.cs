@@ -39,7 +39,7 @@ public class HydrationManager : MonoBehaviour
         }
 
         float seconds = Mathf.FloorToInt(timeToDisplay);
-        hydration.text = "Hydration:" + string.Format("{00}", seconds);
+        hydration.text = "Hydration:";
     }
 
 }
