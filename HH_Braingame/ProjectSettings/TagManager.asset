@@ -10,6 +10,7 @@ TagManager:
   - Cherry
   - Score
   - Trigger1
+  - EsCan
   layers:
   - Default
   - TransparentFX

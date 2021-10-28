@@ -15,6 +15,7 @@ public class HydrationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Ajastin funktio nesteytykselle
         if (time > 0)
         {
             time -= Time.deltaTime;
@@ -28,11 +29,13 @@ public class HydrationManager : MonoBehaviour
 
     public void addToHydration()
     {
+        // Lisää sekunnin
         time += 1;
     }
 
     public void DisplayTime(float timeToDisplay)
     {
+        // Renderöi canvakselle tekstin
         if(timeToDisplay < 0)
         {
             timeToDisplay = 0;
