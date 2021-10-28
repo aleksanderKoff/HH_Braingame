@@ -9,8 +9,10 @@ public class Clicker : MonoBehaviour
     EsCan esCan;
     HydrationManager hydrationmanager;
 
+    
     private void Start()
     {
+        // Haetaan gameobjectit käytettäväksi
         esCan = GameObject.FindGameObjectWithTag("EsCan").GetComponent<EsCan>();
         hydrationmanager = GameObject.FindGameObjectWithTag("Score").GetComponent<HydrationManager>();
     }
