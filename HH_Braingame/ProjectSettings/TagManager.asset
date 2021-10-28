@@ -9,6 +9,7 @@ TagManager:
   - Clickable
   - Cherry
   - Score
+  - Trigger1
   layers:
   - Default
   - TransparentFX
