@@ -7,9 +7,12 @@ public class StopPlayer : MonoBehaviour
     public GameObject player;
     public GameObject projectileSpawner;
 
+    public GameObject projectile;
+
     void Start()
     {
         GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>().enabled = false;
+        GameObject.Find("Projectile 1").GetComponent<DestroyProjectile>().enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -18,7 +21,11 @@ public class StopPlayer : MonoBehaviour
         {
             player.GetComponent<PlayerMovement> ().enabled = false;
             projectileSpawner.GetComponent<drop_projectile> ().enabled = true;
-            Debug.Log(projectileSpawner.GetComponent<drop_projectile> ().enabled);
+            if (projectile != null)
+            {
+                projectile.GetComponent<DestroyProjectile>().enabled = true;
+            }
+            
         }
     }
 }

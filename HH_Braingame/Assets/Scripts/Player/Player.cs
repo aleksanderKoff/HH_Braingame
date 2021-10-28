@@ -10,5 +10,13 @@ public class Player : MonoBehaviour
     {
         if (transform.position.y <= fallBoundary)
             GameMaster.KillPlayer(this);
+        
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Projectile")
+        {
+            GameMaster.KillPlayer(this);
+        }
     }
 }

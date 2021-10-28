@@ -9,6 +9,8 @@ TagManager:
   - Clickable
   - FreezeCam
   - FreezePlayer
+  - Projectile
+  - Platform
   layers:
   - Default
   - TransparentFX

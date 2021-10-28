@@ -65,16 +65,16 @@ public class ReactionProblemCheck : MonoBehaviour
     // Hide Button objects(1, 2, 3)
     void ButtonSetFalse(UnityEngine.UI.Button a, UnityEngine.UI.Button b, UnityEngine.UI.Button c)
     {
-        button1.gameObject.SetActive(false);
-        button2.gameObject.SetActive(false);
-        button3.gameObject.SetActive(false);
+        a.gameObject.SetActive(false);
+        b.gameObject.SetActive(false);
+        c.gameObject.SetActive(false);
     }
     // Show Button objects(1, 2, 3)
     void ButtonSetTrue(UnityEngine.UI.Button a, UnityEngine.UI.Button b, UnityEngine.UI.Button c)
     {
-        button1.gameObject.SetActive(true);
-        button2.gameObject.SetActive(true);
-        button3.gameObject.SetActive(true);
+        a.gameObject.SetActive(true);
+        b.gameObject.SetActive(true);
+        c.gameObject.SetActive(true);
     }
 
     //Check if the player hit the collider
