@@ -40,16 +40,16 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(0, jumpForce);
     }
 
-    public void DodgeLeft()
+    public void DodgeLeft() //move player left
     {
         rb.velocity = new Vector2(-8f, 0);
     }
-    public void DodgeRight()
+    public void DodgeRight() //move player right
     {
         rb.velocity = new Vector2(8f, 0);
     }
 
-    public bool IsGrounded()
+    public bool IsGrounded() //check if player is touching ground
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public void TurnCharacter()
     {
 
-        int layerMask = 1 << 8; //m��ritt�� mik� layer otetaan mukaan layermaskiin joka annetaan Raycastille, t�ss� tapauksessa 'Platform'. raycast katsoo ainoastaan t�t� layeria sitten
+        int layerMask = 1 << 8; //määrittää mikä layer otetaan mukaan layermaskiin joka annetaan Raycastille, tässä tapauksessa 'Platform'. raycast katsoo ainoastaan t�t� layeria sitten
 
         RaycastHit2D frontSensor = Physics2D.Raycast(transform.position + new Vector3(0.7f, 0, 0), -transform.up, 2, layerMask);
         RaycastHit2D backSensor = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0, 0), -transform.up, 2, layerMask);
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         //Vector3 forward = transform.TransformDirection(Vector3.forward) * 20;
         //Debug.DrawRay(transform.position + new Vector3(0.7f, 0, 0), -transform.up, Color.red);
 
-        //N�ill� saa n�kyv�n DrawRay:n jos haluaa alkaa viel� jotain debuggailemaan
+        //Näillä saa näkyvän DrawRay:n jos haluaa alkaa vielä jotain debuggailemaan
     }
 
 

@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
             GameMaster.KillPlayer(this);
         
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision) //kill player if hit by projectile
     {
         if (collision.tag == "Projectile")
         {

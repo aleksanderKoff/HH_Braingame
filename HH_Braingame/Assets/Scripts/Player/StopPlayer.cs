@@ -17,13 +17,13 @@ public class StopPlayer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "FreezePlayer")
+        if (other.tag == "FreezePlayer") //stop player movement on trigger
         {
-            player.GetComponent<PlayerMovement> ().enabled = false;
-            projectileSpawner.GetComponent<drop_projectile> ().enabled = true;
+            player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
+            projectileSpawner.GetComponent<drop_projectile> ().enabled = true; //start dropping projectiles
             if (projectile != null)
             {
-                projectile.GetComponent<DestroyProjectile>().enabled = true;
+                projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
             }
             
         }

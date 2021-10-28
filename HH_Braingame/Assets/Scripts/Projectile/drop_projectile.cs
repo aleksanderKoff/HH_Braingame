@@ -22,7 +22,7 @@ public class drop_projectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Initiate()
+    public void Initiate() //initiate dropping projectiles
     {
         InvokeRepeating("Drop", 1.0f, projectile_interval);
         
@@ -30,7 +30,7 @@ public class drop_projectile : MonoBehaviour
 
     public void Drop()
     {
-        Quaternion spawnrotation = Quaternion.Euler(0,0,0);
+        Quaternion spawnrotation = Quaternion.Euler(0,0,0); //prevents projectile from rotating during spawn
         Instantiate(projectile,drop_position.position,spawnrotation);
     }
     
