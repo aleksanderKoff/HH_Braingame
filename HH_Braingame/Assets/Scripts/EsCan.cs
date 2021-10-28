@@ -25,6 +25,7 @@ public class EsCan : MonoBehaviour
 
     public static void DestroyObject(GameObject go, float time)
     {
+        // Kills player
         Destroy(go, time);
     }
 

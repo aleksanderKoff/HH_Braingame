@@ -18,20 +18,23 @@ public class Clicker : MonoBehaviour
     private void Update()
     {
 
-
+        // M‰‰ritt‰‰ layerin mihin voi osua raycastill‰
         int layerMask = 1 << LayerMask.NameToLayer("Clickable");
         if (Input.GetMouseButtonDown(0))
         {
+            // L‰hett‰‰ raycastin Camera:sta mouse clickiin
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
+            // Hakee colliderin johon raycast osui
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
             if (hit.collider != null)
             {
                 var hitobject = hit.collider.gameObject;
                 EsCan.PrintName(hitobject);
                 hydrationmanager.addToHydration();
-                // cherry.Itemfeedback();
+                // TODO: Exit animation ei toiminnassa
+                // esCan.Itemfeedback();
                 EsCan.DestroyObject(hitobject, time);
             }
         }
