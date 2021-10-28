@@ -6,12 +6,12 @@ using UnityEngine;
 public class Clicker : MonoBehaviour
 {
     public float time = 0.5f;
-    Cherry cherry;
+    EsCan esCan;
     HydrationManager hydrationmanager;
 
     private void Start()
     {
-        cherry = GameObject.FindGameObjectWithTag("Cherry").GetComponent<Cherry>();
+        esCan = GameObject.FindGameObjectWithTag("EsCan").GetComponent<EsCan>();
         hydrationmanager = GameObject.FindGameObjectWithTag("Score").GetComponent<HydrationManager>();
     }
     
@@ -29,10 +29,10 @@ public class Clicker : MonoBehaviour
             if (hit.collider != null)
             {
                 var hitobject = hit.collider.gameObject;
-                Cherry.PrintName(hitobject);
+                EsCan.PrintName(hitobject);
                 hydrationmanager.addToHydration();
                 // cherry.Itemfeedback();
-                Cherry.DestroyObject(hitobject, time);
+                EsCan.DestroyObject(hitobject, time);
             }
         }
     }
