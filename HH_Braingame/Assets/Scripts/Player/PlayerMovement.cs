@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        
+        if (SceneManager.GetActiveScene().name == "StartMenu")
+            moveSpeed = 0;
     }
 
     // Update is called once per frame
@@ -33,11 +37,14 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
+       
+
         TurnCharacter();
     }
     public void Jump()
     {
         rb.velocity = new Vector2(0, jumpForce);
+        SfxManager.PlaySound("MenuMove");
     }
 
     public bool IsGrounded()

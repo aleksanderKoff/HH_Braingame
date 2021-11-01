@@ -7,9 +7,11 @@ public class HydrationManager : MonoBehaviour
 {
     [SerializeField] public Text hydration;
     public float time = 15;
+    Player player;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class HydrationManager : MonoBehaviour
         else
         {
             time = 0;
+            GameMaster.KillPlayer(player);
         }
         DisplayTime(time);
     }
@@ -30,7 +33,7 @@ public class HydrationManager : MonoBehaviour
     public void addToHydration()
     {
         // Lis‰‰ sekunnin
-        time += 1;
+        time += 2;
     }
 
     public void DisplayTime(float timeToDisplay)
