@@ -101,7 +101,7 @@ public class ReactionProblemV2 : MonoBehaviour
             while (success == false && timer > 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
-                display.OneCharacter(ui_values[1]); // 2 tabs + 2-2 spaces
+                display.OneCharacter(ui_values[1], 2); // 2 tabs + 2-2 spaces
                 //Set buttons visible
                 ButtonSetTrue(button2);
                 success = Input.GetKeyDown(Convert(ui_values[1]));
