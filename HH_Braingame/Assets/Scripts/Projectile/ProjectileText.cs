@@ -41,13 +41,15 @@ public class ProjectileText : MonoBehaviour
 
     void Boundaries()
     {
-        if (player.transform.position.x < 559.0f) //dodge right if player is close to x position 559.0f
-        {
-            direction = false;
-        }
-        if (player.transform.position.x > 570.0f) //dodge left if player is close to x position 570.0f
-        {
-            direction = true;
+        if (player) { 
+            if (player.transform.position.x < 559.0f) //dodge right if player is close to x position 559.0f
+            {
+                direction = false;
+            }
+            if (player.transform.position.x > 570.0f) //dodge left if player is close to x position 570.0f
+            {
+                direction = true;
+            }
         }
     }
 
