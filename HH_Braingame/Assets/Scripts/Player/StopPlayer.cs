@@ -6,12 +6,13 @@ public class StopPlayer : MonoBehaviour
 {
     public GameObject player;
     public GameObject projectileSpawner;
+    drop_projectile projectileDropper;
 
     public GameObject projectile;
 
     void Start()
     {
-        GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>().enabled = false;
+        projectileDropper = projectileSpawner.GetComponent<drop_projectile>();
         projectile.GetComponent<DestroyProjectile>().enabled = false;
     }
 
@@ -19,8 +20,9 @@ public class StopPlayer : MonoBehaviour
     {
         if (other.tag == "FreezePlayer") //stop player movement on trigger
         {
+            Debug.Log("Freeze player");
+            projectileDropper.Initiate();
             player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
-            projectileSpawner.GetComponent<drop_projectile> ().enabled = true; //start dropping projectiles
             if (projectile != null)
             {
                 projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script

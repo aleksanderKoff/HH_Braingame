@@ -15,13 +15,8 @@ public class drop_projectile : MonoBehaviour
 
     public float projectile_interval = 2.0f;
     public GameObject projectile;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Initiate();
-    }
 
-    // Update is called once per frame
+
     public void Initiate() //initiate dropping projectiles
     {
         InvokeRepeating("Drop", 1.0f, projectile_interval);
@@ -31,7 +26,18 @@ public class drop_projectile : MonoBehaviour
     public void Drop()
     {
         Quaternion spawnrotation = Quaternion.Euler(0,0,0); //prevents projectile from rotating during spawn
-        Instantiate(projectile,drop_position.position,spawnrotation);
+
+        if(projectile){ 
+            Instantiate(projectile,drop_position.position,spawnrotation);
+            Debug.Log("Firing...");
+        }
+
+        else
+        {
+            Debug.Log("Null projectile");
+        }
+
+        
     }
     
 }

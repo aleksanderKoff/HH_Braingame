@@ -52,17 +52,20 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump()
     {
-        rb.velocity = new Vector2(0, jumpForce);
+        if (rb)
+            rb.velocity = new Vector2(0, jumpForce);
         SfxManager.PlaySound("MenuMove");
     }
 
     public void DodgeLeft() //move player left
     {
-        rb.velocity = new Vector2(-8f, 0);
+        if(rb)
+            rb.velocity = new Vector2(-8f, 0);
     }
     public void DodgeRight() //move player right
     {
-        rb.velocity = new Vector2(8f, 0);
+        if (rb)
+            rb.velocity = new Vector2(8f, 0);
     }
 
     public bool IsGrounded() //check if player is touching ground

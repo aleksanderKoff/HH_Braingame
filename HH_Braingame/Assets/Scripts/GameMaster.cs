@@ -6,6 +6,8 @@ public class GameMaster : MonoBehaviour
 {
     public static void KillPlayer (Player player)
     {
-        Destroy(player.gameObject);
+        if (player) { 
+            Destroy(player.gameObject);
+        }
     }
 }
