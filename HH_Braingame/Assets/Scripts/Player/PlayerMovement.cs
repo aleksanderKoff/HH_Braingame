@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
     float angle = 0;
 
     [SerializeField] public LayerMask jumpableGround;
-
-
     [SerializeField] public float moveSpeed = 7f;
     [SerializeField] public float jumpForce = 14f;
 
@@ -30,25 +28,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-        
+
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
         }
 
-       
-
         TurnCharacter();
-
-        if(GameObject.Find("InstructionBox") == null)
-            moveSpeed = 7f;
-        else if (GameObject.Find("InstructionBox").activeSelf)
-            StopCharacter();
-        
-
-
     }
     public void Jump()
     {
