@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,8 +18,6 @@ public class PlayerMovement : MonoBehaviour
     float angle = 0;
 
     [SerializeField] public LayerMask jumpableGround;
-
-
     [SerializeField] public float moveSpeed = 7f;
     [SerializeField] public float jumpForce = 14f;
 
@@ -27,20 +27,16 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
-
-        triggerSpot = GameObject.Find("TriggerSpot");
-        rpc = triggerSpot.GetComponent<ReactionProblemCheck>();
-
         
+        if (SceneManager.GetActiveScene().name == "StartMenu")
+            moveSpeed = 0;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        jumpSuccess = rpc.jumpSuccess;
-
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-        
+
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
@@ -74,10 +70,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        rb.velocity = new Vector2(0, jumpForce);
+        if (rb)
+            rb.velocity = new Vector2(0, jumpForce);
+        SfxManager.PlaySound("MenuMove");
     }
 
-    public bool IsGrounded()
+    public void DodgeLeft() //move player left
+    {
+        if(rb)
+            rb.velocity = new Vector2(-8f, 0);
+    }
+    public void DodgeRight() //move player right
+    {
+        if (rb)
+            rb.velocity = new Vector2(8f, 0);
+    }
+
+    public bool IsGrounded() //check if player is touching ground
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
@@ -85,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     public void TurnCharacter()
     {
 
-        int layerMask = 1 << 8; //määrittää mikä layer otetaan mukaan layermaskiin joka annetaan Raycastille, tässä tapauksessa 'Platform'. raycast katsoo ainoastaan tätä layeria sitten
+        int layerMask = 1 << 8; //mÃ¤Ã¤rittÃ¤Ã¤ mikÃ¤ layer otetaan mukaan layermaskiin joka annetaan Raycastille, tÃ¤ssÃ¤ tapauksessa 'Platform'. raycast katsoo ainoastaan tï¿½tï¿½ layeria sitten
 
         RaycastHit2D frontSensor = Physics2D.Raycast(transform.position + new Vector3(0.7f, 0, 0), -transform.up, 2, layerMask);
         RaycastHit2D backSensor = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0, 0), -transform.up, 2, layerMask);
@@ -102,7 +111,12 @@ public class PlayerMovement : MonoBehaviour
         //Vector3 forward = transform.TransformDirection(Vector3.forward) * 20;
         //Debug.DrawRay(transform.position + new Vector3(0.7f, 0, 0), -transform.up, Color.red);
 
-        //Näillä saa näkyvän DrawRay:n jos haluaa alkaa vielä jotain debuggailemaan
+        //NÃ¤illÃ¤ saa nÃ¤kyvÃ¤n DrawRay:n jos haluaa alkaa vielÃ¤ jotain debuggailemaan
+    }
+
+    public void StopCharacter()
+    {
+        moveSpeed = 0;
     }
 
 

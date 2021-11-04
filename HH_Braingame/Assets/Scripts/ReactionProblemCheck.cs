@@ -14,19 +14,20 @@ public class ReactionProblemCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
+        // Init jump,  method
+        // move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
+        // display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
         //Init buttons
-        button1 = GameObject.Find("Button").GetComponent<UnityEngine.UI.Button>();
-        button2 = GameObject.Find("Button (1)").GetComponent<UnityEngine.UI.Button>();
-        button3 = GameObject.Find("Button (2)").GetComponent<UnityEngine.UI.Button>();
-
+        // button1 = GameObject.Find("Button").GetComponent<UnityEngine.UI.Button>();
+        // button2 = GameObject.Find("Button (1)").GetComponent<UnityEngine.UI.Button>();
+        // button3 = GameObject.Find("Button (2)").GetComponent<UnityEngine.UI.Button>();
         //Set buttons invisible
-        ButtonSetFalse(button1, button2, button3);
+        // ButtonSetFalse(button1, button2, button3);
     }
 
 
-    string[] AbcRandomizer()
+    public string[] AbcRandomizer()
     {
         // Lenght 26
         string[] abcArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -57,16 +58,16 @@ public class ReactionProblemCheck : MonoBehaviour
     // Hide Button objects(1, 2, 3)
     void ButtonSetFalse(UnityEngine.UI.Button a, UnityEngine.UI.Button b, UnityEngine.UI.Button c)
     {
-        button1.gameObject.SetActive(false);
-        button2.gameObject.SetActive(false);
-        button3.gameObject.SetActive(false);
+        a.gameObject.SetActive(false);
+        b.gameObject.SetActive(false);
+        c.gameObject.SetActive(false);
     }
     // Show Button objects(1, 2, 3)
     void ButtonSetTrue(UnityEngine.UI.Button a, UnityEngine.UI.Button b, UnityEngine.UI.Button c)
     {
-        button1.gameObject.SetActive(true);
-        button2.gameObject.SetActive(true);
-        button3.gameObject.SetActive(true);
+        a.gameObject.SetActive(true);
+        b.gameObject.SetActive(true);
+        c.gameObject.SetActive(true);
     }
 
     public IEnumerator CheckPress(float timer)
@@ -84,8 +85,9 @@ public class ReactionProblemCheck : MonoBehaviour
             while (jumpSuccess == false && timer >= 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
-                display.TwoCharacters(ui_values[0], "        _        ", ui_values[2]); // 2 tabs + 2-2 spaces
-                //Set buttons visible
+                // display abc puzzle
+                display.Abc_puzzle(ui_values[0], ui_values[2]);
+                // Set buttons visible
                 ButtonSetTrue(button1, button2, button3);
                 jumpSuccess = Input.GetKeyDown(Convert(ui_values[1]));
                 yield return null;
