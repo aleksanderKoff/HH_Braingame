@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class BossTransition : MonoBehaviour
 {
-    public Transform cam;
+    private Camera cam;
     private Vector3 targetPos;
     public float transitionDuration = 2.5f;
+    private float bossCameraSize;
+
+    void Start()
+    {
+        cam = Camera.main;
+        bossCameraSize = 8f;
+    }
+
+    void Update()
+    {
+        
+    }
     IEnumerator Transition()
     {
         float t = 0.0f;
-        Vector3 startingPos = transform.position;
+        Vector3 startingPos = cam.transform.position;
         targetPos = new Vector3(569.49f, -1.59f, -1f);
         while (t < 1.0f)
         {
             t += Time.deltaTime * (Time.timeScale/transitionDuration);
-            transform.position = Vector3.Lerp(startingPos, targetPos, t);
+            cam.transform.position = Vector3.Lerp(startingPos, targetPos, t);
+            cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, bossCameraSize, transitionDuration);
             yield return 0;
         }
     }

@@ -19,7 +19,7 @@ public class drop_projectile : MonoBehaviour
 
     public void Initiate() //initiate dropping projectiles
     {
-        InvokeRepeating("Drop", 1.0f, projectile_interval);
+        InvokeRepeating("Drop", 4.5f, projectile_interval);
         
     }
 
@@ -27,7 +27,7 @@ public class drop_projectile : MonoBehaviour
     {
         Quaternion spawnrotation = Quaternion.Euler(0,0,0); //prevents projectile from rotating during spawn
 
-        if(projectile){ 
+        if(projectile && drop_position){ 
             Instantiate(projectile,drop_position.position,spawnrotation);
             Debug.Log("Firing...");
         }
