@@ -17,7 +17,6 @@ public class ReactionProblemV2 : MonoBehaviour
     {
         // Init jump,  method
         move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-
         display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
         //Init buttons
         button1 = GameObject.Find("Button").GetComponent<UnityEngine.UI.Button>();
@@ -27,10 +26,15 @@ public class ReactionProblemV2 : MonoBehaviour
         ButtonSetFalse(button1, button2, button3);
     }
 
-    // Update is called once per frame
-    void Update()
+    //Check if the player hit the collider
+    void OnTriggerEnter2D(Collider2D other)
     {
 
+        if (other.tag == "Player" && gameObject.tag == "Trigger1")
+        {
+            Debug.Log("COLLIDED");
+            StartCoroutine(CheckPress1(timer));
+        }
     }
 
     string[] AbcRandomizer()
@@ -55,7 +59,6 @@ public class ReactionProblemV2 : MonoBehaviour
 
         return result;
     }
-
     //Convert string to KeyCode
     KeyCode Convert(string key)
     {
@@ -73,17 +76,6 @@ public class ReactionProblemV2 : MonoBehaviour
     void ButtonSetTrue(UnityEngine.UI.Button b)
     {
         button2.gameObject.SetActive(true);
-    }
-
-    //Check if the player hit the collider
-    void OnTriggerEnter2D(Collider2D other)
-    {
-
-        if (other.tag == "Player" && gameObject.tag == "Trigger1")
-        {
-            Debug.Log("COLLIDED");
-            StartCoroutine(CheckPress1(timer));
-        }
     }
 
     IEnumerator CheckPress1(float timer)
