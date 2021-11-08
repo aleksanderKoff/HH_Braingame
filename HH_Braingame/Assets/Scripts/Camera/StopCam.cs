@@ -7,8 +7,16 @@ public class StopCam : MonoBehaviour
     public GameObject Camera;
     public Transform cam;
     public float transitionDuration = 2.5f;
+    public GameObject projectileSpawner;
+    public GameObject hydration;
+    drop_projectile projectileDropper;
 
     private Vector3 targetPos;
+
+    void Start()
+    {
+        projectileDropper = projectileSpawner.GetComponent<drop_projectile>();
+    }
 
 
     void OnTriggerEnter2D(Collider2D other)
@@ -17,6 +25,8 @@ public class StopCam : MonoBehaviour
         {
             Camera.GetComponent<cameraController> ().enabled = false;
             StartCoroutine(Transition());
+            projectileDropper.Initiate();
+            hydration.GetComponent<HydrationManager>().enabled = false;
         }
     }
 
