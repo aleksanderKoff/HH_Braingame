@@ -34,7 +34,7 @@ public class MenuSelection : MonoBehaviour
     {
 
         Vector3 NewGamePosition = InitialPosition;
-        Vector3 OptionsPosition = InitialPosition + new Vector3(0, -115f);
+        Vector3 OptionsPosition = InitialPosition + new Vector3(0, -1f);
 
         //Keyboard Selection
 
