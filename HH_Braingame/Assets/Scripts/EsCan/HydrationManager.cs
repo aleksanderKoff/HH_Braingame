@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HydrationManager : MonoBehaviour
 {
@@ -26,8 +27,10 @@ public class HydrationManager : MonoBehaviour
         // Player dies if timer runs out
         else
         {
-            time = 0;
-            GameMaster.KillPlayer(player);
+            if(SceneManager.GetActiveScene().name != "StartMenu") { 
+                time = 0;
+                GameMaster.KillPlayer(player);
+            }
         }
         // Prevent hydration bar from going above 15(max)
         if(time > 15)

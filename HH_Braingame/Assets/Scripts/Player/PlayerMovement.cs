@@ -35,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
+        if (Input.GetKeyDown(KeyCode.A) && SceneManager.GetActiveScene().name == "StartMenu")
+        {
+            Jump();
+        }
+
         TurnCharacter();
     }
     public void Jump()
