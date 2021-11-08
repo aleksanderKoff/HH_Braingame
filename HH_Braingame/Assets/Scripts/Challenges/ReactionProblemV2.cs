@@ -1,27 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReactionProblemV2 : MonoBehaviour
 {
+    GameMaster gameMaster;
+
     PlayerMovement move;
     DisplayChallenge display;
-    UnityEngine.UI.Button button1;
-    UnityEngine.UI.Button button2;
-    UnityEngine.UI.Button button3;
+
+    Button button1;
+    Button button2;
+    Button button3;
 
     public float timer = 1.75f;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Init jump,  method
-        move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
-        //Init buttons
-        button1 = GameObject.Find("Button").GetComponent<UnityEngine.UI.Button>();
-        button2 = GameObject.Find("Button (1)").GetComponent<UnityEngine.UI.Button>();
-        button3 = GameObject.Find("Button (2)").GetComponent<UnityEngine.UI.Button>();
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
+        move = gameMaster.Move;
+        display = gameMaster.Display;
+
+        button1 = gameMaster.Button1;
+        button2 = gameMaster.Button2;
+        button3 = gameMaster.Button3;
+
         //Set buttons invisible
         ButtonSetFalse(button1, button2, button3);
     }
@@ -66,23 +72,23 @@ public class ReactionProblemV2 : MonoBehaviour
         return keyCode;
     }
     // Hide Button objects(1, 2, 3)
-    void ButtonSetFalse(UnityEngine.UI.Button a, UnityEngine.UI.Button b, UnityEngine.UI.Button c)
+    void ButtonSetFalse(Button a, Button b, Button c)
     {
-        button1.gameObject.SetActive(false);
-        button2.gameObject.SetActive(false);
-        button3.gameObject.SetActive(false);
+        a.gameObject.SetActive(false);
+        b.gameObject.SetActive(false);
+        c.gameObject.SetActive(false);
     }
     // Show Button objects(1, 2, 3)
-    void ButtonSetTrue(UnityEngine.UI.Button b)
+    void ButtonSetTrue(Button b)
     {
-        button2.gameObject.SetActive(true);
+        b.gameObject.SetActive(true);
     }
 
     IEnumerator CheckPress1(float timer)
     {
         // REFAKTOROI
         string[] ui_values = AbcRandomizer();
-        Debug.Log("ui_values:" + "(" + ui_values[1] + ")");
+        Debug.Log($"ui_values: ( {ui_values[0]} ), WRONG ONES: {ui_values[1]} {ui_values[2]}");
 
         while (true)
         {
@@ -93,10 +99,10 @@ public class ReactionProblemV2 : MonoBehaviour
             while (success == false && timer > 0f)
             {
                 timer -= Time.deltaTime; // reduce timer 
-                display.OneCharacter(ui_values[1], 2); // 2 tabs + 2-2 spaces
+                display.OneCharacter(ui_values[0], 2);
                 //Set buttons visible
                 ButtonSetTrue(button2);
-                success = Input.GetKeyDown(Convert(ui_values[1]));
+                success = Input.GetKeyDown(Convert(ui_values[0]));
                 yield return null;
             }
             if (success == false)
