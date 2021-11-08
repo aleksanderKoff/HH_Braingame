@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HydrationManager : MonoBehaviour
 {
@@ -24,8 +25,10 @@ public class HydrationManager : MonoBehaviour
         }
         else
         {
-            time = 0;
-            GameMaster.KillPlayer(player);
+            if(SceneManager.GetActiveScene().name != "StartMenu") { 
+                time = 0;
+                GameMaster.KillPlayer(player);
+            }
         }
         DisplayTime(time);
     }
