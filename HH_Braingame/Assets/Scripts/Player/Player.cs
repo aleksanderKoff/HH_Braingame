@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         //kill player if hit by projectile
         if (collision.tag == "Projectile")
         {
-            GameMaster.KillPlayer(this);
+            player.transform.position = new Vector3(respawnPoint.transform.position.x, respawnPoint.transform.position.y, player.transform.position.z);
         }
         //change respawn poisition to checkpoint when collided
         if (collision.tag == "Checkpoint")
