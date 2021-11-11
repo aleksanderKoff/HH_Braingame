@@ -51,10 +51,18 @@ public class Clicker : MonoBehaviour
                     // TODO: Exit animation ei toiminnassa
                     // esCan.Itemfeedback();
                     SfxManager.PlaySound("CanHit");
-                    EsCan.DestroyObject(hitobject);
+                    hitobject.SetActive(false);
+                    StartCoroutine(RespawnCan(hit.collider, 5));
 
                 }
             }
+
+        IEnumerator RespawnCan(Collider2D hit, int time)
+        {
+            yield return new WaitForSeconds(time);
+            hit.gameObject.SetActive(true);
+
+        }
        
     }
 
