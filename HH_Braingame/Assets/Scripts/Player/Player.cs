@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         {
             player.transform.position = new Vector3(respawnPoint.transform.position.x, respawnPoint.transform.position.y, player.transform.position.z);
         }
-        //change respawn poisition to checkpoint when collided
+        //change respawn position to checkpoint when collided
         if (collision.tag == "Checkpoint")
         {
             Debug.Log("Checkpoint reached!");

@@ -18,14 +18,14 @@ public class Clicker : MonoBehaviour
     private void Update()
     {
 
-        // M‰‰ritt‰‰ layerin mihin voi osua raycastill‰
+        // Specifies which layer can be hit by raycast
         int layerMask = 1 << LayerMask.NameToLayer("Clickable");
 
-        // L‰hett‰‰ raycastin Camera:sta mouse clickiin
+        // Sends raycast from camera to mouse click 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-        // Hakee colliderin johon raycast osui
+        // Get collider that raycast hit
         RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
 
 
@@ -40,7 +40,7 @@ public class Clicker : MonoBehaviour
         {
             CursorManager.ChangeCursorColorDefault();
         }
-
+        //finds the gameobject that the raycast hit
         if (hit.collider != null)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -52,11 +52,12 @@ public class Clicker : MonoBehaviour
                     // esCan.Itemfeedback();
                     SfxManager.PlaySound("CanHit");
                     hitobject.SetActive(false);
+                    //Start can respawn coroutine and set respawn time to 5sec
                     StartCoroutine(RespawnCan(hit.collider, 5));
 
                 }
             }
-
+        //Respawns clicked cans after time given in variable
         IEnumerator RespawnCan(Collider2D hit, int time)
         {
             yield return new WaitForSeconds(time);
