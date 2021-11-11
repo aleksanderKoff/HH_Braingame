@@ -16,7 +16,10 @@ public class drop_projectile : MonoBehaviour
     public float projectile_interval = 2.0f;
     public GameObject projectile;
 
-
+    void Start()
+    {
+        Initiate();
+    }
     public void Initiate() //initiate dropping projectiles
     {
         InvokeRepeating("Drop", 4.5f, projectile_interval);

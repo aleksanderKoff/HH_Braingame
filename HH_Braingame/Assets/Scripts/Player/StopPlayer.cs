@@ -7,6 +7,8 @@ public class StopPlayer : MonoBehaviour
     public GameObject player;
     public GameObject projectile;
     BossGrid boss_grid;
+    drop_projectile projectileDropper;
+    public GameObject projectileSpawner;
 
     void Start()
     {
@@ -14,6 +16,8 @@ public class StopPlayer : MonoBehaviour
         boss_grid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
         boss_grid.enabled = false;
         Debug.Log(boss_grid.enabled == true);
+        projectileDropper = projectileSpawner.GetComponent<drop_projectile>();
+        projectileDropper.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -26,6 +30,7 @@ public class StopPlayer : MonoBehaviour
             if (projectile != null)
             {
                 projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
+                projectileDropper.enabled = true;
             }
             
         }
