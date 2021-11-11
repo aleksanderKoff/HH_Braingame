@@ -8,7 +8,6 @@ public class StopCam : MonoBehaviour
     public Transform cam;
     public float transitionDuration = 2.5f;
     public GameObject projectileSpawner;
-    public GameObject hydration;
     drop_projectile projectileDropper;
 
     private Vector3 targetPos;
@@ -26,7 +25,6 @@ public class StopCam : MonoBehaviour
             Camera.GetComponent<cameraController> ().enabled = false;
             StartCoroutine(Transition());
             projectileDropper.Initiate();
-            hydration.GetComponent<HydrationManager>().enabled = false;
         }
     }
 
