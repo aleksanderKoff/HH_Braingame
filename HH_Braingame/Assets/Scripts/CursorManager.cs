@@ -17,7 +17,7 @@ public class CursorManager : MonoBehaviour
         Cursor.SetCursor(CursorTextureDefault, CursorHotspot, CursorMode.Auto);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
