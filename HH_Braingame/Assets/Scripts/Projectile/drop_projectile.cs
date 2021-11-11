@@ -27,7 +27,8 @@ public class drop_projectile : MonoBehaviour
     {
         Quaternion spawnrotation = Quaternion.Euler(0,0,0); //prevents projectile from rotating during spawn
 
-        if(projectile && drop_position){ 
+        if (projectile && drop_position && gameObject.GetComponent<drop_projectile>().enabled == true)
+        { 
             Instantiate(projectile,drop_position.position,spawnrotation);
             Debug.Log("Firing...");
         }
