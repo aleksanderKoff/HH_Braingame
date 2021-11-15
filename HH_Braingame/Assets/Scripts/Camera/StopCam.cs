@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class StopCam : MonoBehaviour
 {
+    GameMaster gameMaster;
+    CameraController camControl;
+
     public GameObject Camera;
     public Transform cam;
     public float transitionDuration = 2.5f;
 
     private Vector3 targetPos;
 
+    void Start()
+    {
+        gameMaster = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameMaster>();
+
+        camControl = gameMaster.CamControl;
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "FreezeCam")
         {
-            Camera.GetComponent<cameraController> ().enabled = false;
+            camControl.enabled = false;
             StartCoroutine(Transition());
         }
     }

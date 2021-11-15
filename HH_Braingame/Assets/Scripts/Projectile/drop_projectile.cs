@@ -9,7 +9,7 @@ public class drop_projectile : MonoBehaviour
     public GameObject spawner;
 
 
-    ReactionProblemCheck randomizer;
+    ReactionProblemCheckOld randomizer;
 
     public Transform drop_position;
 

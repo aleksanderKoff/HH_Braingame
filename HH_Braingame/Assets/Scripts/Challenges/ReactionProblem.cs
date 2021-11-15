@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReactionProblemV2 : MonoBehaviour
+public class ReactionProblem : MonoBehaviour
 {
     GameMaster gameMaster;
 
@@ -19,31 +19,42 @@ public class ReactionProblemV2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        gameMaster = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameMaster>();
 
-        move = gameMaster.Move;
-        display = gameMaster.Display;
+        if (gameMaster) {
+            Debug.Log($"{gameMaster} Found!");
 
-        button1 = gameMaster.Button1;
-        button2 = gameMaster.Button2;
-        button3 = gameMaster.Button3;
+            move = gameMaster.Move;
+            display = gameMaster.Display;
 
-        //Set buttons invisible
-        ButtonSetFalse(button1, button2, button3);
+            button1 = gameMaster.Button1;
+            button2 = gameMaster.Button2;
+            button3 = gameMaster.Button3;
+
+            //Set buttons invisible
+            if (button1 & button2 & button3) { 
+                Debug.Log($"Setting buttons false...");
+                ButtonSetFalse(button1, button2, button3);
+            }
+        }
+        else
+        {
+            Debug.LogError($"{gameMaster} not found...");
+        }
     }
+    
 
     //Check if the player hit the collider
     void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (other.tag == "Player" && gameObject.tag == "Trigger1")
+        if (other.tag == "ReactionProblem" && gameObject.tag == "Player")
         {
-            Debug.Log("COLLIDED");
+            Debug.Log($"{gameObject.tag} detected!");
             StartCoroutine(CheckPress1(timer));
         }
     }
 
-    string[] AbcRandomizer()
+    public string[] AbcRandomizer()
     {
         // Lenght 26
         string[] abcArray = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
