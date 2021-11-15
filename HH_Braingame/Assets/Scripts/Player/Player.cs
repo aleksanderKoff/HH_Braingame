@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    CameraController camControl;
+    drop_projectile dropProjectile;
     BossHealth boss;
     private Camera cam;
     [SerializeField] public Transform playerPosition;
@@ -13,6 +15,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        camControl = GameObject.Find("Camera").GetComponent<CameraController>();
+        dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
+
         playerLocation = playerPosition;
         respawnLocation = respawnPoint;
         cam = Camera.main;
@@ -26,9 +31,11 @@ public class Player : MonoBehaviour
         //kill player if hit by projectile
         if (collision.tag == "Projectile" && gameObject && boss.killed == false)
         {
-            Respawn.RespawnPlayer();
-            GameObject.Find("Camera").GetComponent<CameraController>().enabled = true;
-            GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>().enabled = false;
+            RespawnMenu.Pause();
+
+            camControl.enabled = true;
+            dropProjectile.enabled = false;
+
             gameObject.GetComponent<PlayerMovement> ().enabled = true;
             cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 6f, 2f);
         }
