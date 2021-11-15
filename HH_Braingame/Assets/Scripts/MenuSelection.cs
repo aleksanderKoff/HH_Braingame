@@ -7,16 +7,22 @@ public class MenuSelection : MonoBehaviour
 
 {
     private string[] menuStates = new string[] { "new game", "options" };
+    private string[] optionsMenuStates = new string[] {"bgm volume", "sfx volume" };
     private int selected = 0;
+    
 
     GameObject player;
     PlayerMovement pm;
 
     private Vector3 ArrowInitialPosition;
     private string CurrentMenuState;
+    private string ActiveMenuState;
     private bool MouseIsOnMenuItems;
     private bool MenuIsFunctional;
     private GameObject arrowPointer;
+
+    private GameObject VolumeMenu;
+    private GameObject DefaultMenu;
 
     void Start()
     {
@@ -24,10 +30,16 @@ public class MenuSelection : MonoBehaviour
         pm = player.GetComponent<PlayerMovement>();
         pm.moveSpeed = 0;
 
-        arrowPointer = GameObject.Find("/Canvas/CenterTexts/Arrow");
+        arrowPointer = GameObject.Find("/Canvas/Arrow");
         ArrowInitialPosition = arrowPointer.transform.position;
 
-        CurrentMenuState = menuStates[0];
+        VolumeMenu = GameObject.Find("/Canvas/VolumeMenu");
+        VolumeMenu.SetActive(false);
+
+        DefaultMenu = GameObject.Find("Canvas/DefaultMenu");
+
+        
+        ActiveMenuState = "MainMenu";
         MouseIsOnMenuItems = false;
         MenuIsFunctional = true;
         
@@ -37,10 +49,15 @@ public class MenuSelection : MonoBehaviour
         ChangeMenuState();
 
         if(Input.GetKeyDown(KeyCode.Return) || (MouseIsOnMenuItems && Input.GetMouseButtonDown(0)))
-            StartCoroutine("ChangeScene", CurrentMenuState);
+            StartCoroutine("ChangeScene");
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !ActiveMenuState.Equals("MainMenu"))
+            StartCoroutine("ChangeScene");
+
     }
     private void ChangeMenuState()
     {
+
         if (MenuIsFunctional == true)
         {
 
@@ -81,18 +98,25 @@ public class MenuSelection : MonoBehaviour
                 }
             }
 
-            //Mouse Selection
+            if(Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
+            {
 
-            int layerMask = 1 << LayerMask.NameToLayer("Clickable");
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
+            {
+
+            }
+
+                //Mouse Selection
+
+                int layerMask = 1 << LayerMask.NameToLayer("Clickable");
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
-            string menuItemName;
-
-
+            
             if (hit.collider != null)
             {
-                menuItemName = hit.collider.gameObject.name;
+                string menuItemName = hit.collider.gameObject.name;
                 Debug.Log(hit.collider.gameObject.name);
 
 
@@ -111,14 +135,14 @@ public class MenuSelection : MonoBehaviour
                     arrowPointer.transform.position = OptionsPosition;
                     MouseIsOnMenuItems = true;
                 }
-
-
-
             }
             else
                 MouseIsOnMenuItems = false;
         }
+        if (ActiveMenuState.Equals("MainMenu"))
             CurrentMenuState = menuStates[selected];
+        else if (ActiveMenuState.Equals("Options"))
+            CurrentMenuState = optionsMenuStates[selected];
     }
 
     private IEnumerator ChangeScene()
@@ -135,6 +159,19 @@ public class MenuSelection : MonoBehaviour
 
             SceneManager.LoadScene("MainMap", LoadSceneMode.Single);
         }
-
+        else if (CurrentMenuState.Equals("options"))
+        {
+            ActiveMenuState = "Options";
+            DefaultMenu.SetActive(false);
+            VolumeMenu.SetActive(true);
+            SfxManager.PlaySound("MenuMove");
+        }
+        else if (ActiveMenuState.Equals("Options") && Input.GetKeyDown(KeyCode.Escape))
+        {
+            VolumeMenu.SetActive(false);
+            DefaultMenu.SetActive(true);
+            SfxManager.PlaySound("MenuMove");
+            ActiveMenuState = "MainMenu";
+        }
     }
  }

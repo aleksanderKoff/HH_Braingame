@@ -22,6 +22,17 @@ public class BGMManager : MonoBehaviour
 
     }
 
+    public void TurnVolumeDown()
+    {
+        Audio.volume =- 0.2f;
+    }
+
+    public void TurnVolumeUp()
+    {
+        Audio.volume =+ 0.2f;
+    }
+
+
     public static void ChangeBgm(string bgmName)
     {
 
