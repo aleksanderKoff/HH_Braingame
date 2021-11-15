@@ -37,6 +37,7 @@ public class BossTransition : MonoBehaviour
     {
         if (other.tag == "FreezeCam")
         {
+            BGMManager.ChangeBgm("BossDialogue");
             StartCoroutine(Transition());
         }
     }

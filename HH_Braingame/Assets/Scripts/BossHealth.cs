@@ -13,6 +13,7 @@ public class BossHealth : MonoBehaviour
     [Tooltip("Victory text")]
     public Text victory;
     drop_projectile drop_projectile;
+    bool killed;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class BossHealth : MonoBehaviour
         boss = GameObject.Find("HeadMaster");
         drop_projectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
         spawner = GameObject.Find("ProjectileSpawner");
+        killed = false;
     }
 
     // Update is called once per frame
@@ -45,10 +47,12 @@ public class BossHealth : MonoBehaviour
     }
     void Kill()
     {
-        if (boss_health.health == 0f && boss_health)
+        if (boss_health.health == 0f && boss_health && killed == false)
         {
             Destroy(spawner);
             victory.text = "Victory!";
+            BGMManager.ChangeBgm("VictoryBGM");
+            killed = true;
         }
     }
 }
