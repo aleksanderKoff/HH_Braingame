@@ -16,7 +16,9 @@ public class Player : MonoBehaviour
         playerLocation = playerPosition;
         respawnLocation = respawnPoint;
         cam = Camera.main;
-        boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
+        if (GameObject.Find("DestroyProjectile")) { 
+            boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +27,7 @@ public class Player : MonoBehaviour
         if (collision.tag == "Projectile" && gameObject && boss.killed == false)
         {
             Respawn.RespawnPlayer();
-            GameObject.Find("Camera").GetComponent<cameraController>().enabled = true;
+            GameObject.Find("Camera").GetComponent<CameraController>().enabled = true;
             GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>().enabled = false;
             gameObject.GetComponent<PlayerMovement> ().enabled = true;
             cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 6f, 2f);

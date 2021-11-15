@@ -8,7 +8,7 @@ public class ProjectileText : MonoBehaviour
      private TextMeshProUGUI text;
      PlayerMovement move;
      GameObject player;
-     ReactionProblemCheck randomizer;
+     ReactionProblem randomizer;
      string[] values;
 
      bool direction; // true = dodge left, false = dodge right
@@ -20,19 +20,19 @@ public class ProjectileText : MonoBehaviour
         return keyCode;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         direction = (Random.value < 0.5); //random between "true" and "false"
         player = GameObject.FindGameObjectWithTag("Player");
-        randomizer = GameObject.FindGameObjectWithTag("Trigger").GetComponent<ReactionProblemCheck>();
-        move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
+        randomizer = player.GetComponent<ReactionProblem>();
+        move = player.GetComponent<PlayerMovement>();
         text = GetComponent<TextMeshProUGUI>();
+
         values = randomizer.AbcRandomizer(); //get random character
         text.text = values[1]; //add random character to projectile
     }
 
-    // Update is called once per frame
     void Update()
     {
         Boundaries(); //check if player is within boundaries
