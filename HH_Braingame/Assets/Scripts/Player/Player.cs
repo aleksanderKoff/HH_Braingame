@@ -7,12 +7,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private Transform checkPoint;
+    BossHealth boss;
     public int fallBoundary = -20;
     private Camera cam;
 
     void Start()
     {
         cam = Camera.main;
+        boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
     }
     // Update is called once per frame
     void Update()
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         //kill player if hit by projectile
-        if (collision.tag == "Projectile")
+        if (collision.tag == "Projectile" && gameObject && boss.killed == false)
         {
             player.transform.position = new Vector3(respawnPoint.transform.position.x, respawnPoint.transform.position.y, player.transform.position.z);
             GameObject.Find("Camera").GetComponent<cameraController>().enabled = true;

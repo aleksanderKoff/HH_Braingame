@@ -10,10 +10,12 @@ public class BossHealth : MonoBehaviour
     BossHealth boss_health;
     GameObject boss;
     GameObject spawner;
+    GameObject grid;
+    HydrationManager hydration;
     [Tooltip("Victory text")]
     public Text victory;
     drop_projectile drop_projectile;
-    bool killed;
+    public bool killed;
 
     void Start()
     {
@@ -21,6 +23,8 @@ public class BossHealth : MonoBehaviour
         boss = GameObject.Find("HeadMaster");
         drop_projectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
         spawner = GameObject.Find("ProjectileSpawner");
+        grid = GameObject.Find("BossGrid");
+        hydration = GameObject.Find("Hydration").GetComponent<HydrationManager>();
         killed = false;
     }
 
@@ -50,7 +54,9 @@ public class BossHealth : MonoBehaviour
         if (boss_health.health == 0f && boss_health && killed == false)
         {
             Destroy(spawner);
+            Destroy(grid);
             victory.text = "Victory!";
+            hydration.enabled = false;
             BGMManager.ChangeBgm("VictoryBGM");
             killed = true;
         }

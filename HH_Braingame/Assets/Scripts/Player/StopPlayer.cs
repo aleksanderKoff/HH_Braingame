@@ -25,7 +25,10 @@ public class StopPlayer : MonoBehaviour
         if (other.tag == "FreezePlayer") //stop player movement on trigger
         {
             Debug.Log("Freeze player");
-            boss_grid.enabled = true;
+            if (boss_grid)
+            {
+                boss_grid.enabled = true;
+            }
             player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
             if (projectile != null)
             {
