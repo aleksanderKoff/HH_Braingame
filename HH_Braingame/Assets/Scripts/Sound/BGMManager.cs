@@ -8,6 +8,7 @@ public class BGMManager : MonoBehaviour
     public static AudioClip DefaultBGM;
     public static AudioClip BossDialogueBGM;
     public static AudioClip BossFightBGM;
+    public static AudioClip VictoryBGM;
 
 
     private void Awake()
@@ -16,6 +17,7 @@ public class BGMManager : MonoBehaviour
         DefaultBGM = Resources.Load<AudioClip>("Audio/DefaultBGM");
         BossDialogueBGM = Resources.Load<AudioClip>("Audio/BossDialogueBGM");
         BossFightBGM = Resources.Load<AudioClip>("Audio/BossFightBGM");
+        VictoryBGM = Resources.Load<AudioClip>("Audio/VictoryBGM");
 
 
     }
@@ -33,6 +35,10 @@ public class BGMManager : MonoBehaviour
                 break;
             case "BossFight":
                 Audio.clip = BossFightBGM;
+                break;
+            case "VictoryBGM":
+                Audio.clip = null;
+                Audio.PlayOneShot(VictoryBGM);
                 break;
         }
 
