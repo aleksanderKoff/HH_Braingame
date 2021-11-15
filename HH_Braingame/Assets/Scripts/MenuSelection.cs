@@ -6,18 +6,22 @@ using UnityEngine.SceneManagement;
 public class MenuSelection : MonoBehaviour
 
 {
-    string[] menuStates = new string[] { "new game", "options" };
-    int selected = 0;
-    Vector3 ArrowInitialPosition;
-    string CurrentMenuState;
-    bool MouseIsOnMenuItems;
-    bool MenuIsFunctional;
-    GameObject arrowPointer;
+    private string[] menuStates = new string[] { "new game", "options" };
+    private int selected = 0;
+
+    GameObject player;
+    PlayerMovement pm;
+
+    private Vector3 ArrowInitialPosition;
+    private string CurrentMenuState;
+    private bool MouseIsOnMenuItems;
+    private bool MenuIsFunctional;
+    private GameObject arrowPointer;
 
     void Start()
     {
-        GameObject player = GameObject.Find("Player");
-        PlayerMovement pm = player.GetComponent<PlayerMovement>();
+        player = GameObject.Find("Player");
+        pm = player.GetComponent<PlayerMovement>();
         pm.moveSpeed = 0;
 
         arrowPointer = GameObject.Find("/Canvas/CenterTexts/Arrow");
@@ -28,15 +32,14 @@ public class MenuSelection : MonoBehaviour
         MenuIsFunctional = true;
         
     }
-
     void Update()
     {
-        CurrentMenuState = ChangeMenuState();
+        ChangeMenuState();
 
         if(Input.GetKeyDown(KeyCode.Return) || (MouseIsOnMenuItems && Input.GetMouseButtonDown(0)))
             StartCoroutine("ChangeScene", CurrentMenuState);
     }
-    private string ChangeMenuState()
+    private void ChangeMenuState()
     {
         if (MenuIsFunctional == true)
         {
@@ -62,8 +65,7 @@ public class MenuSelection : MonoBehaviour
                     Debug.Log(menuStates[selected]);
                 }
 
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            }else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 SfxManager.PlaySound("MenuMove");
 
@@ -116,14 +118,11 @@ public class MenuSelection : MonoBehaviour
             else
                 MouseIsOnMenuItems = false;
         }
-            return menuStates[selected];
+            CurrentMenuState = menuStates[selected];
     }
 
-    private IEnumerator ChangeScene(string CurrentMenuState)
+    private IEnumerator ChangeScene()
     {
-        GameObject player = GameObject.Find("Player");
-        PlayerMovement pm = player.GetComponent<PlayerMovement>();
-
         if (CurrentMenuState.Equals("new game"))
         {
        
