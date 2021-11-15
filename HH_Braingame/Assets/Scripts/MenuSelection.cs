@@ -8,30 +8,32 @@ public class MenuSelection : MonoBehaviour
 {
     string[] menuStates = new string[] { "new game", "options" };
     int selected = 0;
-    Vector3 InitialPosition;
+    Vector3 ArrowInitialPosition;
     string CurrentMenuState;
-    string menuItemName;
     bool MouseIsOnMenuItems;
     bool MenuIsFunctional;
-    bool SuccessSoundHasBeenPlayed;
+    GameObject arrowPointer;
 
     void Start()
     {
         GameObject player = GameObject.Find("Player");
         PlayerMovement pm = player.GetComponent<PlayerMovement>();
         pm.moveSpeed = 0;
-        InitialPosition = transform.position;
+
+        arrowPointer = GameObject.Find("/Canvas/CenterTexts/Arrow");
+        ArrowInitialPosition = arrowPointer.transform.position;
+
         CurrentMenuState = menuStates[0];
         MouseIsOnMenuItems = false;
         MenuIsFunctional = true;
-        SuccessSoundHasBeenPlayed = false;
+        
     }
 
     void Update()
     {
         CurrentMenuState = ChangeMenuState();
 
-        if(Input.GetKeyDown(KeyCode.Return) || (MouseIsOnMenuItems && Input.GetMouseButton(0)))
+        if(Input.GetKeyDown(KeyCode.Return) || (MouseIsOnMenuItems && Input.GetMouseButtonDown(0)))
             StartCoroutine("ChangeScene", CurrentMenuState);
     }
     private string ChangeMenuState()
@@ -39,8 +41,8 @@ public class MenuSelection : MonoBehaviour
         if (MenuIsFunctional == true)
         {
 
-            Vector3 NewGamePosition = InitialPosition;
-            Vector3 OptionsPosition = InitialPosition + new Vector3(0, -1f);
+            Vector3 NewGamePosition = ArrowInitialPosition;
+            Vector3 OptionsPosition = ArrowInitialPosition + new Vector3(0, -1f);
 
             //Keyboard Selection
 
@@ -51,14 +53,12 @@ public class MenuSelection : MonoBehaviour
                 if (selected < menuStates.Length - 1)
                 {
                     selected++;
-                    transform.position = OptionsPosition;
-                    Debug.Log(menuStates[selected]);
-                    Debug.Log(transform.position);
+                    arrowPointer.transform.position = OptionsPosition;
                 }
                 else
                 {
                     selected = 0;
-                    transform.position = NewGamePosition;
+                    arrowPointer.transform.position = NewGamePosition;
                     Debug.Log(menuStates[selected]);
                 }
 
@@ -70,14 +70,12 @@ public class MenuSelection : MonoBehaviour
                 if (selected > 0)
                 {
                     selected--;
-                    transform.position = NewGamePosition;
-                    Debug.Log(menuStates[selected]);
+                    arrowPointer.transform.position = NewGamePosition;
                 }
                 else
                 {
                     selected = menuStates.Length - 1;
-                    transform.position = OptionsPosition;
-                    Debug.Log(menuStates[selected]);
+                    arrowPointer.transform.position = OptionsPosition;
                 }
             }
 
@@ -87,6 +85,7 @@ public class MenuSelection : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
+            string menuItemName;
 
 
             if (hit.collider != null)
@@ -99,7 +98,7 @@ public class MenuSelection : MonoBehaviour
                 {
                     selected = 0;
                     SfxManager.PlaySound("MenuMove");
-                    transform.position = NewGamePosition;
+                    arrowPointer.transform.position = NewGamePosition;
                     MouseIsOnMenuItems = true;
 
                 }
@@ -107,7 +106,7 @@ public class MenuSelection : MonoBehaviour
                 {
                     selected = 1;
                     SfxManager.PlaySound("MenuMove");
-                    transform.position = OptionsPosition;
+                    arrowPointer.transform.position = OptionsPosition;
                     MouseIsOnMenuItems = true;
                 }
 
@@ -127,12 +126,9 @@ public class MenuSelection : MonoBehaviour
 
         if (CurrentMenuState.Equals("new game"))
         {
-            if (SuccessSoundHasBeenPlayed == false)
-            {
-                SfxManager.PlaySound("MenuSuccess");
-                SuccessSoundHasBeenPlayed = true;
-            }
-            Debug.Log("played sound");
+       
+            SfxManager.PlaySound("MenuSuccess");
+        
             pm.moveSpeed = 5;
             MenuIsFunctional = false;
 
