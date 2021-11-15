@@ -17,7 +17,7 @@ public class Respawn : MonoBehaviour
         //if player falls below boundary, call Respawn function
         if (transform.position.y <= fallBoundary)
         {
-            RespawnPlayer();
+            RespawnMenu.Pause();
         }
     }
 
