@@ -5,11 +5,13 @@ using UnityEngine;
 public class Respawn : MonoBehaviour
 {
     Player player;
+    HydrationManager hydrationManager;
     public int fallBoundary = -20;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
     }
 
     void Update()
@@ -18,6 +20,7 @@ public class Respawn : MonoBehaviour
         if (transform.position.y <= fallBoundary)
         {
             RespawnMenu.Pause();
+            hydrationManager.time = 15;
         }
     }
 
@@ -34,7 +37,7 @@ public class Respawn : MonoBehaviour
     {
         // Changes player position to respawn position (moves player)
         Player.playerLocation.transform.position = new Vector3(Player.respawnLocation.transform.position.x, Player.respawnLocation.transform.position.y, Player.playerLocation.transform.position.z);
-        BGMManager.ChangeBgm("Default");  
+        BGMManager.ChangeBgm("Default");
     }
 
 }

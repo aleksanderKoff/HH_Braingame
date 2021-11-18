@@ -14,12 +14,14 @@ public class Player : MonoBehaviour
     [SerializeField] public Transform respawnPoint;
     public static Transform respawnLocation;
     public static Transform playerLocation;
+    HydrationManager hydrationManager;
 
     void Start()
     {
         camControl = GameObject.Find("Camera").GetComponent<CameraController>();
         dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
 
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
         playerLocation = playerPosition;
         respawnLocation = respawnPoint;
         cam = Camera.main;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
         {
             RespawnMenu.Pause();
 
+            hydrationManager.time = 15;
             camControl.enabled = true;
             dropProjectile.enabled = false;
             bossHealth.value = 100;

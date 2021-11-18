@@ -31,7 +31,6 @@ public class StopPlayer : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().enabled = false; //disable PlayerMovement script
             dialogueTrigger.TriggerDialogue();
-            hydrationManager.enabled = false;
 
         }
         if (other.tag == "FreezePlayer") {

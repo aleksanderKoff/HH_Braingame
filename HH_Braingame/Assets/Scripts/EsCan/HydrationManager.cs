@@ -8,12 +8,14 @@ public class HydrationManager : MonoBehaviour
 {
     [SerializeField] public Text hydration;
     public float time = 15;
+    HydrationManager hydrationManager;
     Player player;
     public float cancounter = 0;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,8 @@ public class HydrationManager : MonoBehaviour
         {
             if(SceneManager.GetActiveScene().name != "StartMenu") { 
                 time = 0;
-                GameMaster.KillPlayer(player);
+                RespawnMenu.Pause();
+                hydrationManager.time = 15;
             }
         }
         // Prevent hydration bar from going above 15(max)
