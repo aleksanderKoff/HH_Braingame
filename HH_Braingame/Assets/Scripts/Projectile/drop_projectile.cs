@@ -5,16 +5,12 @@ using TMPro;
 
 public class drop_projectile : MonoBehaviour
 {
-
     public GameObject spawner;
-
-
-    ReactionProblemCheckOld randomizer;
+    public GameObject projectile;
 
     public Transform drop_position;
 
     public float projectile_interval = 2.0f;
-    public GameObject projectile;
 
     void Start()
     {
@@ -23,7 +19,6 @@ public class drop_projectile : MonoBehaviour
     public void Initiate() //initiate dropping projectiles
     {
         InvokeRepeating("Drop", 4.5f, projectile_interval);
-        
     }
 
     public void Drop()

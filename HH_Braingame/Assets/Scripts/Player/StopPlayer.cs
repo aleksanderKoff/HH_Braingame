@@ -30,7 +30,7 @@ public class StopPlayer : MonoBehaviour
                 boss_grid.enabled = true;
             }
             player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
-            if (projectile != null)
+            if (projectile && projectileDropper)
             {
                 projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
                 projectileDropper.enabled = true;

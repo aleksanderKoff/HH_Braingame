@@ -54,22 +54,39 @@ public class ReactionProblem : MonoBehaviour
         }
     }
 
-    public string[] AbcRandomizer()
+    public string[] AbcRandomizer(bool alternativeLetters)
     {
-        // Lenght 26
-        string[] abcArray = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        string[] abcArray;
 
-        //Initialize blank list, array
-        List<string> draw = new List<string>();
+        if (alternativeLetters) {
+            // Lenght 15
+            abcArray = new string[] { "Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V", "B" }; 
+        } 
+        else {
+            // Lenght 26
+            abcArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        }
+
         string[] result;
 
-        int seed = Random.Range(0, 23);
-        int end = seed + 2;
+        int arrLenghtAbc = abcArray.Length;
 
-        while (seed <= end)
+        Debug.Log($"Current array: \n {abcArray} \n Array lenght: {arrLenghtAbc}");
+
+        int spaceForLast = 3;
+        int lastTwoLetters = 2;
+        int arrFirstIndex = 0;
+
+        int maxRandom = arrLenghtAbc - spaceForLast;
+        int randomValue = Random.Range(arrFirstIndex, maxRandom);
+        int endValue = randomValue + lastTwoLetters;
+
+        List<string> draw = new List<string>();
+
+        while (randomValue <= endValue)
         {
-            draw.Add(abcArray[seed]);
-            seed++;
+            draw.Add(abcArray[randomValue]);
+            randomValue++;
         }
 
         result = draw.ToArray();
