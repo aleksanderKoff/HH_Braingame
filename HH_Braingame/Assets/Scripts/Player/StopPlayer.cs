@@ -1,41 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class StopPlayer : MonoBehaviour
 {
     public GameObject player;
     public GameObject projectile;
-    BossGrid boss_grid;
+    BossGrid bossGrid;
     drop_projectile projectileDropper;
+    public Slider bossHp;
     public GameObject projectileSpawner;
+    DialogueTrigger dialogueTrigger;
+    HydrationManager hydrationManager;
 
     void Start()
     {
         projectile.GetComponent<DestroyProjectile>().enabled = false;
-        boss_grid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
-        boss_grid.enabled = false;
-        Debug.Log(boss_grid.enabled == true);
+        bossGrid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
+        bossGrid.enabled = false;
+        Debug.Log(bossGrid.enabled == true);
         projectileDropper = projectileSpawner.GetComponent<drop_projectile>();
         projectileDropper.enabled = false;
+        dialogueTrigger = GameObject.Find("DialogueTrigger").GetComponent<DialogueTrigger>();
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "FreezePlayer") //stop player movement on trigger
+        if (other.tag == "DialogueTrigger" && DialogueManager.DialogueIsOpen == false) //stop player movement on trigger
         {
-            Debug.Log("Freeze player");
-            if (boss_grid)
-            {
-                boss_grid.enabled = true;
-            }
-            player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
-            if (projectile && projectileDropper)
-            {
-                projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
-                projectileDropper.enabled = true;
-            }
-            
+            player.GetComponent<PlayerMovement>().enabled = false; //disable PlayerMovement script
+            dialogueTrigger.TriggerDialogue();
+            hydrationManager.enabled = false;
+
         }
-    }
+        if (other.tag == "FreezePlayer") {
+
+                player.GetComponent<PlayerMovement>().enabled = false; //disable PlayerMovement script
+                hydrationManager.enabled = true;
+                Debug.Log("Freeze player");
+                if (bossGrid)
+                {
+                    bossGrid.enabled = true;
+                }
+                bossHp.gameObject.SetActive(true);
+                if (projectile != null)
+                {
+                    projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
+                    projectileDropper.enabled = true;
+                }
+            }
+        }
 }
