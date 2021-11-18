@@ -5,11 +5,8 @@ using UnityEngine;
 public class StopCam : MonoBehaviour
 {
     public GameObject Camera;
-    public Transform cam;
-    public float transitionDuration = 2.5f;
     BossClicker bossClicker;
     Clicker clicker;
-
     private Vector3 targetPos;
 
     void Start()
@@ -24,8 +21,8 @@ public class StopCam : MonoBehaviour
         if (other.tag == "FreezeCam")
         {
             Camera.GetComponent<cameraController> ().enabled = false;
-            bossClicker.enabled = true;
             clicker.enabled = false;
+            bossClicker.enabled = true;
         }
     }
 }
