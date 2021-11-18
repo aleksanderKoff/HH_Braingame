@@ -6,17 +6,17 @@ public class StopPlayer : MonoBehaviour
 {
     public GameObject player;
     public GameObject projectile;
-    BossGrid boss_grid;
+    BossGrid bossGrid;
     drop_projectile projectileDropper;
-    public Slider boss_hp;
+    public Slider bossHp;
     public GameObject projectileSpawner;
 
     void Start()
     {
         projectile.GetComponent<DestroyProjectile>().enabled = false;
-        boss_grid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
-        boss_grid.enabled = false;
-        Debug.Log(boss_grid.enabled == true);
+        bossGrid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
+        bossGrid.enabled = false;
+        Debug.Log(bossGrid.enabled == true);
         projectileDropper = projectileSpawner.GetComponent<drop_projectile>();
         projectileDropper.enabled = false;
     }
@@ -26,11 +26,11 @@ public class StopPlayer : MonoBehaviour
         if (other.tag == "FreezePlayer") //stop player movement on trigger
         {
             Debug.Log("Freeze player");
-            if (boss_grid)
+            if (bossGrid)
             {
-                boss_grid.enabled = true;
+                bossGrid.enabled = true;
             }
-            boss_hp.gameObject.SetActive(true);
+            bossHp.gameObject.SetActive(true);
             player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
             if (projectile != null)
             {

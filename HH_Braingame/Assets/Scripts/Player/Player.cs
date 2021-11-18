@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     CameraController camControl;
     drop_projectile dropProjectile;
     BossHealth boss;
+    public Slider bossHealth;
     private Camera cam;
     [SerializeField] public Transform playerPosition;
     [SerializeField] public Transform respawnPoint;
@@ -35,6 +37,8 @@ public class Player : MonoBehaviour
 
             camControl.enabled = true;
             dropProjectile.enabled = false;
+            bossHealth.value = 100;
+            bossHealth.gameObject.SetActive(false);
 
             gameObject.GetComponent<PlayerMovement> ().enabled = true;
             cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 6f, 2f);
