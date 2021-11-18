@@ -54,24 +54,16 @@ public class ReactionProblem : MonoBehaviour
         }
     }
 
-    public string[] AbcRandomizer(bool alternativeLetters)
+    public string[] AbcRandomizer()
     {
         string[] abcArray;
-
-        if (alternativeLetters) {
-            // Lenght 15
-            abcArray = new string[] { "Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V", "B" }; 
-        } 
-        else {
-            // Lenght 26
-            abcArray = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-        }
-
         string[] result;
+        // Lenght 15
+        abcArray = new string[] { "Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V", "B" }; 
 
         int arrLenghtAbc = abcArray.Length;
 
-        Debug.Log($"Current array: \n {abcArray} \n Array lenght: {arrLenghtAbc}");
+        Debug.Log($"Current array: {abcArray} Array lenght: {arrLenghtAbc}");
 
         int spaceForLast = 3;
         int lastTwoLetters = 2;
