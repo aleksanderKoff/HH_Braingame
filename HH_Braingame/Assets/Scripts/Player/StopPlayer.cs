@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class StopPlayer : MonoBehaviour
 {
     public GameObject player;
     public GameObject projectile;
     BossGrid boss_grid;
     drop_projectile projectileDropper;
+    public Slider boss_hp;
     public GameObject projectileSpawner;
 
     void Start()
@@ -29,6 +30,7 @@ public class StopPlayer : MonoBehaviour
             {
                 boss_grid.enabled = true;
             }
+            boss_hp.gameObject.SetActive(true);
             player.GetComponent<PlayerMovement> ().enabled = false; //disable PlayerMovement script
             if (projectile != null)
             {
