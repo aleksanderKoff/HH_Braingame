@@ -39,11 +39,11 @@ public class StopPlayer : MonoBehaviour
                 player.GetComponent<PlayerMovement>().enabled = false; //disable PlayerMovement script
                 hydrationManager.enabled = true;
                 Debug.Log("Freeze player");
-                if (boss_grid)
+                if (bossGrid)
                 {
-                    boss_grid.enabled = true;
+                    bossGrid.enabled = true;
                 }
-                boss_hp.gameObject.SetActive(true);
+                bossHp.gameObject.SetActive(true);
                 if (projectile != null)
                 {
                     projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
