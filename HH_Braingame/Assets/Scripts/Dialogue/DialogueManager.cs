@@ -21,7 +21,6 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         DialogueIsOpen = true;
-        Time.timeScale = 0f;
         animator.SetBool("isOpen", true);
         nameText.text = dialogue.name;
 
@@ -60,8 +59,6 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        DialogueIsOpen = false;
-        Time.timeScale = 1f;
         player.GetComponent<PlayerMovement>().enabled = true;
         animator.SetBool("isOpen", false);
     }
