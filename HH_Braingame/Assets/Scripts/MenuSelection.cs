@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuSelection : MonoBehaviour
@@ -33,6 +34,9 @@ public class MenuSelection : MonoBehaviour
         arrowPointer = GameObject.Find("/Canvas/Arrow");
         ArrowInitialPosition = arrowPointer.transform.position;
 
+        DisplayVolume(BGMManager.Audio.volume, "bgm");
+        DisplayVolume(BGMManager.Audio.volume, "sfx");
+
         VolumeMenu = GameObject.Find("/Canvas/VolumeMenu");
         VolumeMenu.SetActive(false);
 
@@ -42,7 +46,6 @@ public class MenuSelection : MonoBehaviour
         ActiveMenuState = "MainMenu";
         MouseIsOnMenuItems = false;
         MenuIsFunctional = true;
-        
     }
     void Update()
     {
@@ -60,6 +63,7 @@ public class MenuSelection : MonoBehaviour
 
         if (MenuIsFunctional == true)
         {
+
 
             Vector3 NewGamePosition = ArrowInitialPosition;
             Vector3 OptionsPosition = ArrowInitialPosition + new Vector3(0, -1f);
@@ -98,18 +102,63 @@ public class MenuSelection : MonoBehaviour
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
+            if(Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
             {
+                if(CurrentMenuState.Equals("bgm volume"))
+                {
+                    if (BGMManager.Audio.volume < 1)
+                        BGMManager.TurnVolumeUp();
+                    else
+                        BGMManager.Audio.volume = 0;
+
+                    SfxManager.PlaySound("MenuMove");
+                    Debug.Log(BGMManager.Audio.volume);
+                    DisplayVolume(BGMManager.Audio.volume, "bgm");
+                }
+                else if(CurrentMenuState.Equals("sfx volume"))
+                {
+                    if (SfxManager.Audio.volume < 1)
+                        SfxManager.TurnVolumeUp();
+                       
+                    else
+                        SfxManager.Audio.volume = 0;
+
+                    SfxManager.PlaySound("MenuMove");
+                    DisplayVolume(BGMManager.Audio.volume, "sfx");
+                }
+               
+
 
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
             {
+                if (CurrentMenuState.Equals("bgm volume"))
+                {
+                    if (BGMManager.Audio.volume > 0)
+                        BGMManager.TurnVolumeDown();
+                    else
+                        BGMManager.Audio.volume = 1;
+
+                    DisplayVolume(BGMManager.Audio.volume, "bgm");
+                    SfxManager.PlaySound("MenuMove");
+                    
+                }
+                else if (CurrentMenuState.Equals("sfx volume"))
+                {
+                    if (SfxManager.Audio.volume > 0)
+                        SfxManager.TurnVolumeDown();
+                    else
+                        SfxManager.Audio.volume = 1;
+
+                    SfxManager.PlaySound("MenuMove");
+                    DisplayVolume(BGMManager.Audio.volume, "sfx");
+                }
 
             }
 
                 //Mouse Selection
 
-                int layerMask = 1 << LayerMask.NameToLayer("Clickable");
+            int layerMask = 1 << LayerMask.NameToLayer("Clickable");
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, layerMask);
@@ -147,6 +196,7 @@ public class MenuSelection : MonoBehaviour
 
     private IEnumerator ChangeScene()
     {
+        
         if (CurrentMenuState.Equals("new game"))
         {
        
@@ -173,5 +223,101 @@ public class MenuSelection : MonoBehaviour
             SfxManager.PlaySound("MenuMove");
             ActiveMenuState = "MainMenu";
         }
+    }
+
+    private void DisplayVolume(float volume, string type)
+    {
+        Debug.Log("used displayVolume");
+
+        GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
+        Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
+        GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
+        Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
+
+
+        if (volume == 0)
+        {
+            if (type.Equals("bgm"))
+                VolumeDisplayBgm.text = "";
+            else if (type.Equals("sfx")) { 
+                Debug.Log("reached if");
+                VolumeDisplaySfx.text = "";
+            }
+        }
+        else if(volume == 0.2f)
+        {
+            if (type.Equals("bgm"))
+                VolumeDisplayBgm.text = "I";
+            else if (type.Equals("sfx"))
+                VolumeDisplaySfx.text = "I";
+        }else if(volume == 0.4f)
+        {
+            if (type.Equals("bgm"))
+                VolumeDisplayBgm.text = "II";
+            else if (type.Equals("sfx"))
+                VolumeDisplaySfx.text = "II";
+        }else if (volume == 0.6f)
+        {
+            if (type.Equals("bgm"))
+                VolumeDisplayBgm.text = "III";
+            else if (type.Equals("sfx"))
+                VolumeDisplaySfx.text = "III";
+        }else if (volume == 0.8f)
+        {
+            if (type.Equals("bgm"))
+                VolumeDisplayBgm.text = "IIII";
+            else if (type.Equals("sfx"))
+                VolumeDisplaySfx.text = "IIII";
+        }else if (volume == 1f)
+        {
+            if (type.Equals("bgm"))
+                VolumeDisplayBgm.text = "IIIII";
+            else if (type.Equals("sfx"))
+                VolumeDisplaySfx.text = "IIIII";
+        }
+
+        /*
+        switch (volume)
+        {
+            case 0:
+                if (type.Equals("bgm"))
+                    VolumeDisplayBgm.text = "";
+                else if (type.Equals("sfx"))
+                    VolumeDisplaySfx.text = "";
+                break;
+            case 0.2f:
+                if (type.Equals("bgm"))
+                    VolumeDisplayBgm.text = "I";
+                else if (type.Equals("sfx"))
+                    VolumeDisplaySfx.text = "I";
+                break;
+            case 0.4f:
+                if (type.Equals("bgm"))
+                    VolumeDisplayBgm.text = "II";
+                else if (type.Equals("sfx"))
+                    VolumeDisplaySfx.text = "II";
+                break;
+            case 0.6f:
+                if (type.Equals("bgm"))
+                    VolumeDisplayBgm.text = "III";
+                else if (type.Equals("sfx"))
+                    VolumeDisplaySfx.text = "III";
+                break;
+            case 0.8f:
+                if (type.Equals("bgm"))
+                    VolumeDisplayBgm.text = "IIII";
+                else if (type.Equals("sfx"))
+                    VolumeDisplaySfx.text = "IIII";
+                break;
+            case 1f:
+                if (type.Equals("bgm"))
+                    VolumeDisplayBgm.text = "IIIII";
+                else if (type.Equals("sfx"))
+                    VolumeDisplaySfx.text = "IIIII";
+                break;
+        }
+        */
+
+
     }
  }
