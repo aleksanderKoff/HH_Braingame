@@ -20,7 +20,7 @@ public class StopPlayer : MonoBehaviour
         Debug.Log(boss_grid.enabled == true);
         projectileDropper = projectileSpawner.GetComponent<drop_projectile>();
         projectileDropper.enabled = false;
-        dialogueTrigger = GameObject.Find("FreezePlayer").GetComponent<DialogueTrigger>();
+        dialogueTrigger = GameObject.Find("DialogueTrigger").GetComponent<DialogueTrigger>();
     }
 
     void OnTriggerEnter2D(Collider2D other)

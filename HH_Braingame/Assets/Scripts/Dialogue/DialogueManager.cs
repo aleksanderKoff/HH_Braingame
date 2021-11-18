@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    Player player;
+    public GameObject player;
     public Text nameText;
     public Text dialogueText;
     public Animator animator;
@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+        player = GameObject.Find("Player");
     }
 
     public void StartDialogue(Dialogue dialogue)
