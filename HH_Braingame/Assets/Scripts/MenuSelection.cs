@@ -8,7 +8,7 @@ public class MenuSelection : MonoBehaviour
 
 {
     private string[] menuStates = new string[] { "new game", "options" };
-    private string[] optionsMenuStates = new string[] {"bgm volume", "sfx volume" };
+    private string[] optionsMenuStates = new string[] {"bgm volume", "sfx volume", "resolution" };
     private int selected = 0;
     
 
@@ -60,30 +60,27 @@ public class MenuSelection : MonoBehaviour
     }
     private void ChangeMenuState()
     {
+        Vector3 OneStepDown = new Vector3(0, -1f);
+        Vector3 OneStepUp = new Vector3(0, 1f);
+        Vector3 CurrentArrowPosition = arrowPointer.transform.position;
 
         if (MenuIsFunctional == true)
         {
 
 
-            Vector3 NewGamePosition = ArrowInitialPosition;
-            Vector3 OptionsPosition = ArrowInitialPosition + new Vector3(0, -1f);
-
-            //Keyboard Selection
-
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 SfxManager.PlaySound("MenuMove");
 
-                if (selected < menuStates.Length - 1)
+                if ((ActiveMenuState.Equals("MainMenu") && selected < menuStates.Length - 1) || (ActiveMenuState.Equals("Options") && selected < optionsMenuStates.Length - 1))
                 {
                     selected++;
-                    arrowPointer.transform.position = OptionsPosition;
+                    arrowPointer.transform.position = CurrentArrowPosition + OneStepDown;  
                 }
                 else
                 {
                     selected = 0;
-                    arrowPointer.transform.position = NewGamePosition;
-                    Debug.Log(menuStates[selected]);
+                    arrowPointer.transform.position = ArrowInitialPosition;
                 }
 
             }else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -93,12 +90,17 @@ public class MenuSelection : MonoBehaviour
                 if (selected > 0)
                 {
                     selected--;
-                    arrowPointer.transform.position = NewGamePosition;
+                    arrowPointer.transform.position = CurrentArrowPosition + OneStepUp;
+                }
+                else if (ActiveMenuState.Equals("MainMenu"))
+                {
+                    selected = menuStates.Length - 1;
+                    arrowPointer.transform.position = ArrowInitialPosition + (menuStates.Length - 1) * OneStepDown;
                 }
                 else
                 {
-                    selected = menuStates.Length - 1;
-                    arrowPointer.transform.position = OptionsPosition;
+                    selected = optionsMenuStates.Length - 1;
+                    arrowPointer.transform.position = ArrowInitialPosition + (optionsMenuStates.Length - 1) * OneStepDown;
                 }
             }
 
@@ -112,7 +114,6 @@ public class MenuSelection : MonoBehaviour
                         BGMManager.Audio.volume = 0;
 
                     SfxManager.PlaySound("MenuMove");
-                    Debug.Log(BGMManager.Audio.volume);
                     DisplayVolume(BGMManager.Audio.volume, "bgm");
                 }
                 else if(CurrentMenuState.Equals("sfx volume"))
@@ -156,7 +157,7 @@ public class MenuSelection : MonoBehaviour
 
             }
 
-                //Mouse Selection
+             /*   //Mouse Selection
 
             int layerMask = 1 << LayerMask.NameToLayer("Clickable");
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -187,11 +188,14 @@ public class MenuSelection : MonoBehaviour
             }
             else
                 MouseIsOnMenuItems = false;
+             */
+            if (ActiveMenuState.Equals("MainMenu"))
+                CurrentMenuState = menuStates[selected];
+            else if (ActiveMenuState.Equals("Options"))
+                CurrentMenuState = optionsMenuStates[selected];
+             
         }
-        if (ActiveMenuState.Equals("MainMenu"))
-            CurrentMenuState = menuStates[selected];
-        else if (ActiveMenuState.Equals("Options"))
-            CurrentMenuState = optionsMenuStates[selected];
+        
     }
 
     private IEnumerator ChangeScene()
@@ -212,6 +216,8 @@ public class MenuSelection : MonoBehaviour
         else if (CurrentMenuState.Equals("options"))
         {
             ActiveMenuState = "Options";
+            arrowPointer.transform.position = ArrowInitialPosition;
+            selected = 0;
             DefaultMenu.SetActive(false);
             VolumeMenu.SetActive(true);
             SfxManager.PlaySound("MenuMove");
@@ -220,6 +226,8 @@ public class MenuSelection : MonoBehaviour
         {
             VolumeMenu.SetActive(false);
             DefaultMenu.SetActive(true);
+            arrowPointer.transform.position = ArrowInitialPosition;
+            selected = 0;
             SfxManager.PlaySound("MenuMove");
             ActiveMenuState = "MainMenu";
         }
