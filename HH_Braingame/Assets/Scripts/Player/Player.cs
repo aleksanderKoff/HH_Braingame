@@ -1,47 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform respawnPoint;
-    [SerializeField] private Transform checkPoint;
-    public int fallBoundary = -20;
+    CameraController camControl;
+    drop_projectile dropProjectile;
+    BossHealth boss;
+    public Slider bossHealth;
     private Camera cam;
+    [SerializeField] public Transform playerPosition;
+    [SerializeField] public Transform respawnPoint;
+    public static Transform respawnLocation;
+    public static Transform playerLocation;
 
     void Start()
     {
+        camControl = GameObject.Find("Camera").GetComponent<CameraController>();
+        dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
+
+        playerLocation = playerPosition;
+        respawnLocation = respawnPoint;
         cam = Camera.main;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        //if player falls below boundary, change player position to respawn position
-        if (transform.position.y <= fallBoundary)
-        {
-            player.transform.position = new Vector3(respawnPoint.transform.position.x, respawnPoint.transform.position.y, player.transform.position.z);
+        if (GameObject.Find("DestroyProjectile")) { 
+            boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
         }
-
-
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         //kill player if hit by projectile
-        if (collision.tag == "Projectile")
+        if (collision.tag == "Projectile" && gameObject && boss.killed == false)
         {
-            player.transform.position = new Vector3(respawnPoint.transform.position.x, respawnPoint.transform.position.y, player.transform.position.z);
-            GameObject.Find("Camera").GetComponent<cameraController>().enabled = true;
-            GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>().enabled = false;
+            RespawnMenu.Pause();
+
+            camControl.enabled = true;
+            dropProjectile.enabled = false;
+            bossHealth.value = 100;
+            bossHealth.gameObject.SetActive(false);
+
             gameObject.GetComponent<PlayerMovement> ().enabled = true;
             cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 6f, 2f);
-        }
-        //change respawn position to checkpoint when collided
-        if (collision.tag == "Checkpoint")
-        {
-            Debug.Log("Checkpoint reached!");
-            
-            respawnPoint.transform.position = collision.transform.position;
         }
     }
 

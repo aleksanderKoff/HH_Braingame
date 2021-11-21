@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReactionProblemCheck : MonoBehaviour
+public class ReactionProblemCheckOld : MonoBehaviour
 {
     PlayerMovement move;
     DisplayChallenge display;

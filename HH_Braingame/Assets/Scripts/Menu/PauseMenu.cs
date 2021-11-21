@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    MenuConfirmPanel menuConfirmPanel;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+
+    void Start()
+    {
+        menuConfirmPanel = GameObject.Find("PauseMenuCanvas (1)").GetComponent<MenuConfirmPanel>();
+    }
 
     void Update()
     {
@@ -27,6 +33,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        menuConfirmPanel.disableConfirmation();
     }
 
     public void Pause()
