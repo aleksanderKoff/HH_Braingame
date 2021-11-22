@@ -9,6 +9,7 @@ public class StopCam : MonoBehaviour
 
     BossClicker bossClicker;
     Clicker clicker;
+    HydrationManager hydrationManager;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class StopCam : MonoBehaviour
 
         bossClicker = GameObject.Find("Camera").GetComponent<BossClicker>();
         clicker = GameObject.Find("Camera").GetComponent<Clicker>();
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
         bossClicker.enabled = false;
     }
 
@@ -27,7 +29,7 @@ public class StopCam : MonoBehaviour
         {
             camControl.enabled = false;
             clicker.enabled = false;
-
+            hydrationManager.enabled = false;
             bossClicker.enabled = true;
         }
     }
