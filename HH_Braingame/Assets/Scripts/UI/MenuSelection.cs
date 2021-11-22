@@ -109,9 +109,6 @@ public class MenuSelection : MonoBehaviour
                         arrowPointer.transform.position = ArrowInitialPosition + (menuStates.Length - 1) * OneStepDown;
                     }
                 }
-
-
-
             }
             //Options Menu
             if (ActiveMenuState.Equals("Options"))
@@ -150,7 +147,7 @@ public class MenuSelection : MonoBehaviour
                     }
                 }
 
-                //Handle pressing down arrow
+                //Handle pressing right arrow
                 if (Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
                 {
                     if (CurrentMenuState.Equals("bgm volume"))
@@ -196,9 +193,8 @@ public class MenuSelection : MonoBehaviour
                         
                     }
 
-
-
                 }
+                //handle pressing left arrow
                 if (Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
                 {
                     if (CurrentMenuState.Equals("bgm volume"))
@@ -242,130 +238,14 @@ public class MenuSelection : MonoBehaviour
                         {
                             ShowLastResolution();
                         }
-
-
                     }
-
-                }
-
-            }
-                /*
-                if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                SfxManager.PlaySound("MenuMove");
-
-                if ((ActiveMenuState.Equals("MainMenu") && selected < menuStates.Length - 1) || (ActiveMenuState.Equals("Options") && selected < optionsMenuStates.Length - 1))
-                {
-                    selected++;
-                    arrowPointer.transform.position = CurrentArrowPosition + OneStepDown;  
-                }
-                else
-                {
-                    selected = 0;
-                    arrowPointer.transform.position = ArrowInitialPosition;
-                }
-
-            }else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                SfxManager.PlaySound("MenuMove");
-
-                if (selected > 0)
-                {
-                    selected--;
-                    arrowPointer.transform.position = CurrentArrowPosition + OneStepUp;
-                }
-                else if (ActiveMenuState.Equals("MainMenu"))
-                {
-                    selected = menuStates.Length - 1;
-                    arrowPointer.transform.position = ArrowInitialPosition + (menuStates.Length - 1) * OneStepDown;
-                }
-                else
-                {
-                    selected = optionsMenuStates.Length - 1;
-                    arrowPointer.transform.position = ArrowInitialPosition + (optionsMenuStates.Length - 1) * OneStepDown;
                 }
             }
-
-            if(Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
-            {
-                if(CurrentMenuState.Equals("bgm volume"))
-                {
-                    if (BGMManager.Audio.volume < 1)
-                    { 
-                        BGMManager.TurnVolumeUp();
-                        AddVolumeDisplayed("bgm");
-                    }
-                    else 
-                    { 
-                        BGMManager.Audio.volume = 0;
-                        ResetVolumeDisplayedToZero("bgm");
-
-
-                    }
-                    SfxManager.PlaySound("MenuMove");
-                }
-                else if(CurrentMenuState.Equals("sfx volume"))
-                {
-                    if (SfxManager.Audio.volume < 1)
-                    {
-                        SfxManager.TurnVolumeUp();
-                        AddVolumeDisplayed("sfx");
-                    }
-
-
-                    else 
-                    { 
-                        SfxManager.Audio.volume = 0;
-                        ResetVolumeDisplayedToZero("sfx");
-                    }
-                    SfxManager.PlaySound("MenuMove");
-                }
-               
-
-
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
-            {
-                if (CurrentMenuState.Equals("bgm volume"))
-                {
-                    if (BGMManager.Audio.volume > 0)
-                    {
-                        BGMManager.TurnVolumeDown();
-                        ReduceVolumeDisplayed("bgm");
-                    }       
-                    else
-                    {
-                        BGMManager.Audio.volume = 1;
-                        ResetVolumeDisplayedToFull("bgm");
-                    }
-                      
-                    SfxManager.PlaySound("MenuMove");          
-                }
-                else if (CurrentMenuState.Equals("sfx volume"))
-                {
-                    if (SfxManager.Audio.volume > 0) 
-                    {
-                        SfxManager.TurnVolumeDown();
-                        ReduceVolumeDisplayed("sfx");
-                    }
-                    else
-                    {
-                        SfxManager.Audio.volume = 1;
-                        ResetVolumeDisplayedToFull("sfx");
-                    }
-
-                    SfxManager.PlaySound("MenuMove");
-       
-                }
-
-            }
-                */
-
+            
             if (ActiveMenuState.Equals("MainMenu"))
                 CurrentMenuState = menuStates[selected];
             else if (ActiveMenuState.Equals("Options"))
-                CurrentMenuState = optionsMenuStates[selected];
-             
+                CurrentMenuState = optionsMenuStates[selected];            
         }
         
     }
@@ -403,6 +283,7 @@ public class MenuSelection : MonoBehaviour
             selected = 0;
             SfxManager.PlaySound("MenuMove");
             ActiveMenuState = "MainMenu";
+            Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, true);
         }
     }
 
