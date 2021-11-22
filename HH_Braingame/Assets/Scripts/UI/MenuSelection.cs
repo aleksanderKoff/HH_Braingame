@@ -11,6 +11,9 @@ public class MenuSelection : MonoBehaviour
     private string[] optionsMenuStates = new string[] {"bgm volume", "sfx volume", "resolution" };
     private int selected = 0;
     
+    Resolution[] resolutions;
+    int resolutionIndex;
+
 
     GameObject player;
     PlayerMovement pm;
@@ -30,6 +33,9 @@ public class MenuSelection : MonoBehaviour
         player = GameObject.Find("Player");
         pm = player.GetComponent<PlayerMovement>();
         pm.moveSpeed = 0;
+
+        resolutions = Screen.resolutions;
+        resolutionIndex = 0;
 
         arrowPointer = GameObject.Find("/Canvas/Arrow");
         ArrowInitialPosition = arrowPointer.transform.position;
@@ -64,11 +70,187 @@ public class MenuSelection : MonoBehaviour
         Vector3 OneStepUp = new Vector3(0, 1f);
         Vector3 CurrentArrowPosition = arrowPointer.transform.position;
 
+        //Checks whether a new game is already selected or not and if yes doesn't allow to move in the menu
         if (MenuIsFunctional == true)
         {
+            //Main Menu
+            if (ActiveMenuState.Equals("MainMenu")){
+                
+                //Handle pressing down arrow
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    SfxManager.PlaySound("MenuMove");
+
+                    if (selected < menuStates.Length - 1)
+                    {
+                        selected++;
+                        arrowPointer.transform.position = CurrentArrowPosition + OneStepDown;
+                    }
+                    else
+                    {
+                        selected = 0;
+                        arrowPointer.transform.position = ArrowInitialPosition;
+                    }
+                }
+
+                //Handle pressing up arrow
+                else if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    SfxManager.PlaySound("MenuMove");
+
+                    if (selected > 0)
+                    {
+                        selected--;
+                        arrowPointer.transform.position = CurrentArrowPosition + OneStepUp;
+                    }
+                    else
+                    {
+                        selected = menuStates.Length - 1;
+                        arrowPointer.transform.position = ArrowInitialPosition + (menuStates.Length - 1) * OneStepDown;
+                    }
+                }
 
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+
+            }
+            //Options Menu
+            if (ActiveMenuState.Equals("Options"))
+            {
+                //Handle pressing down arrow
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    SfxManager.PlaySound("MenuMove");
+
+                    if ((ActiveMenuState.Equals("MainMenu") && selected < menuStates.Length - 1) || (ActiveMenuState.Equals("Options") && selected < optionsMenuStates.Length - 1))
+                    {
+                        selected++;
+                        arrowPointer.transform.position = CurrentArrowPosition + OneStepDown;
+                    }
+                    else
+                    {
+                        selected = 0;
+                        arrowPointer.transform.position = ArrowInitialPosition;
+                    }
+                }
+
+                //Handle pressing up arrow
+                else if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    SfxManager.PlaySound("MenuMove");
+
+                    if (selected > 0)
+                    {
+                        selected--;
+                        arrowPointer.transform.position = CurrentArrowPosition + OneStepUp;
+                    }
+                    else
+                    {
+                        selected = optionsMenuStates.Length - 1;
+                        arrowPointer.transform.position = ArrowInitialPosition + (optionsMenuStates.Length - 1) * OneStepDown;
+                    }
+                }
+
+                //Handle pressing down arrow
+                if (Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
+                {
+                    if (CurrentMenuState.Equals("bgm volume"))
+                    {
+                        if (BGMManager.Audio.volume < 1)
+                        {
+                            BGMManager.TurnVolumeUp();
+                            AddVolumeDisplayed("bgm");
+                        }
+                        else
+                        {
+                            BGMManager.Audio.volume = 0;
+                            ResetVolumeDisplayedToZero("bgm");
+                        }
+                        SfxManager.PlaySound("MenuMove");
+                    }
+                    else if (CurrentMenuState.Equals("sfx volume"))
+                    {
+                        if (SfxManager.Audio.volume < 1)
+                        {
+                            SfxManager.TurnVolumeUp();
+                            AddVolumeDisplayed("sfx");
+                        }
+
+                        else
+                        {
+                            SfxManager.Audio.volume = 0;
+                            ResetVolumeDisplayedToZero("sfx");
+                        }
+                        SfxManager.PlaySound("MenuMove");
+                    }
+                    else if(CurrentMenuState.Equals("resolution"))
+                    {
+                        if(resolutionIndex < resolutions.Length - 1)
+                        {
+                            ShowNextResolution();
+                        }
+                        else
+                        {
+                            ShowFirstResolution();
+                        }
+                        
+                        
+                    }
+
+
+
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
+                {
+                    if (CurrentMenuState.Equals("bgm volume"))
+                    {
+                        if (BGMManager.Audio.volume > 0)
+                        {
+                            BGMManager.TurnVolumeDown();
+                            ReduceVolumeDisplayed("bgm");
+                        }
+                        else
+                        {
+                            BGMManager.Audio.volume = 1;
+                            ResetVolumeDisplayedToFull("bgm");
+                        }
+
+                        SfxManager.PlaySound("MenuMove");
+                    }
+                    else if (CurrentMenuState.Equals("sfx volume"))
+                    {
+                        if (SfxManager.Audio.volume > 0)
+                        {
+                            SfxManager.TurnVolumeDown();
+                            ReduceVolumeDisplayed("sfx");
+                        }
+                        else
+                        {
+                            SfxManager.Audio.volume = 1;
+                            ResetVolumeDisplayedToFull("sfx");
+                        }
+
+                        SfxManager.PlaySound("MenuMove");
+
+                    }
+                    else if (CurrentMenuState.Equals("resolution"))
+                    {
+                        if (resolutionIndex > 0)
+                        {
+                            ShowPreviousResolution();
+                        }
+                        else
+                        {
+                            ShowLastResolution();
+                        }
+
+
+                    }
+
+                }
+
+            }
+                /*
+                if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 SfxManager.PlaySound("MenuMove");
 
@@ -177,6 +359,7 @@ public class MenuSelection : MonoBehaviour
                 }
 
             }
+                */
 
             if (ActiveMenuState.Equals("MainMenu"))
                 CurrentMenuState = menuStates[selected];
@@ -326,5 +509,37 @@ public class MenuSelection : MonoBehaviour
             VolumeDisplayBgm.text = "IIIII";
         else if (type.Equals("sfx"))
             VolumeDisplaySfx.text = "IIIII";
+    }
+    private void ShowNextResolution()
+    {
+        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
+        resolutionIndex++;
+        textComponent.text = ResToString(resolutions[resolutionIndex]);
+    }
+
+    private void ShowPreviousResolution()
+    {
+        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
+        resolutionIndex--;
+        textComponent.text = ResToString(resolutions[resolutionIndex]);
+    }
+
+    private void ShowFirstResolution()
+    {
+        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
+        resolutionIndex = 0;
+        textComponent.text = ResToString(resolutions[resolutionIndex]);
+    }
+
+    private void ShowLastResolution()
+    {
+        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
+        resolutionIndex = resolutions.Length - 1;
+        textComponent.text = ResToString(resolutions[resolutionIndex]);
+    }
+
+    string ResToString(Resolution res)
+    {
+        return res.width + "x" + res.height + " " + res.refreshRate + "hz";
     }
 }
