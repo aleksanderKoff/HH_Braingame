@@ -10,6 +10,7 @@ public class BGMManager : MonoBehaviour
     public static AudioClip BossFightBGM;
     public static AudioClip VictoryBGM;
 
+    public static BGMManager BGMInstance;
 
     private void Awake()
     {
@@ -19,8 +20,25 @@ public class BGMManager : MonoBehaviour
         BossFightBGM = Resources.Load<AudioClip>("Audio/BossFightBGM");
         VictoryBGM = Resources.Load<AudioClip>("Audio/VictoryBGM");
 
+        if (BGMInstance != null && BGMInstance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
 
+        DontDestroyOnLoad(this);
     }
+
+    public static void TurnVolumeDown()
+    {
+        Audio.volume = Audio.volume - 0.2f;
+    }
+
+    public static void TurnVolumeUp()
+    {
+        Audio.volume = Audio.volume + 0.2f;
+    }
+
 
     public static void ChangeBgm(string bgmName)
     {

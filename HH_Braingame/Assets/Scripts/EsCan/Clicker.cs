@@ -31,7 +31,7 @@ public class Clicker : MonoBehaviour
 
         
 
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.gameObject.tag.Equals("EsCan"))
         {
             var hitobject = hit.collider.gameObject;
             CursorManager.ChangeCursorColorHit();  
@@ -54,6 +54,7 @@ public class Clicker : MonoBehaviour
                     hitobject.SetActive(false);
                     //Start can respawn coroutine and set respawn time to 5sec
                     StartCoroutine(RespawnCan(hit.collider, 5));
+                    
 
                 }
             }

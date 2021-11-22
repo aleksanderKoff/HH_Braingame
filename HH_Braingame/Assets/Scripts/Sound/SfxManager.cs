@@ -32,6 +32,16 @@ public class SfxManager : MonoBehaviour
 
     }
 
+    public static void TurnVolumeDown()
+    {
+        Audio.volume = Audio.volume - 0.2f;
+    }
+
+    public static void TurnVolumeUp()
+    {
+        Audio.volume = Audio.volume + 0.2f;
+    }
+
     public static void PlaySound(string SoundName)
     {
         switch(SoundName)
