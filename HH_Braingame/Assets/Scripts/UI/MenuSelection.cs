@@ -43,6 +43,8 @@ public class MenuSelection : MonoBehaviour
         DisplayVolume(BGMManager.Audio.volume, "bgm");
         DisplayVolume(BGMManager.Audio.volume, "sfx");
 
+        ShowFirstResolution();
+
         VolumeMenu = GameObject.Find("/Canvas/VolumeMenu");
         VolumeMenu.SetActive(false);
 
@@ -189,8 +191,8 @@ public class MenuSelection : MonoBehaviour
                         {
                             ShowFirstResolution();
                         }
-                        
-                        
+
+                        SfxManager.PlaySound("MenuMove");
                     }
 
                 }
@@ -238,6 +240,7 @@ public class MenuSelection : MonoBehaviour
                         {
                             ShowLastResolution();
                         }
+                        SfxManager.PlaySound("MenuMove");
                     }
                 }
             }
