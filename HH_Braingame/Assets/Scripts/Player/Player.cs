@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    CameraController camControl;
+    ControllerCamera camControl;
     drop_projectile dropProjectile;
     BossHealth boss;
     BossGrid bossGrid;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        camControl = GameObject.Find("Camera").GetComponent<CameraController>();
+        camControl = GameObject.Find("Camera").GetComponent<ControllerCamera>();
         dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
 
         hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();

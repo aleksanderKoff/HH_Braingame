@@ -5,7 +5,7 @@ using UnityEngine;
 public class StopCam : MonoBehaviour
 {
     GameMaster gameMaster;
-    CameraController camControl;
+    ControllerCamera camControl;
 
     BossClicker bossClicker;
     Clicker clicker;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class ControllerCamera : MonoBehaviour
 {
     [SerializeField] private Transform player;
     public float yPosRestriction = -20;

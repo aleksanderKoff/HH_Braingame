@@ -7,7 +7,7 @@ public class GameMaster : MonoBehaviour
 {
     private PlayerMovement move;
     private DisplayChallenge display;
-    private CameraController camControl;
+    private ControllerCamera camControl;
     GameObject boss;
 
     private Button button1;
@@ -19,14 +19,14 @@ public class GameMaster : MonoBehaviour
     public Button Button1 { get => button1; set => button1 = value; }
     public Button Button2 { get => button2; set => button2 = value; }
     public Button Button3 { get => button3; set => button3 = value; }
-    public CameraController CamControl { get => camControl; set => camControl = value; }
+    public ControllerCamera CamControl { get => camControl; set => camControl = value; }
 
     void Awake()
     {
         // Init jump,  method
         Move = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         Display = GameObject.FindGameObjectWithTag("Player").GetComponent<DisplayChallenge>();
-        CamControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+        CamControl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ControllerCamera>();
         boss = GameObject.Find("HeadMaster");
         //Init buttons
         Button1 = GameObject.Find("Button").GetComponent<Button>();
