@@ -22,13 +22,16 @@ public class SfxManager : MonoBehaviour
        MenuSuccessSfx = Resources.Load<AudioClip>("Audio/MenuSuccessSFX");
        CanHitSfx = Resources.Load<AudioClip>("Audio/CanSfx");
 
-        if (SfxInstance != null && SfxInstance != this)
+        int numSfxPlayers = FindObjectsOfType<SfxManager>().Length;
+        if (numSfxPlayers != 1)
         {
             Destroy(this.gameObject);
-            return;
         }
 
-        DontDestroyOnLoad(this);
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
     }
 

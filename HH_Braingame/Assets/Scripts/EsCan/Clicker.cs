@@ -54,8 +54,6 @@ public class Clicker : MonoBehaviour
                     hitobject.SetActive(false);
                     //Start can respawn coroutine and set respawn time to 5sec
                     StartCoroutine(RespawnCan(hit.collider, 5));
-                    
-
                 }
             }
         //Respawns clicked cans after time given in variable

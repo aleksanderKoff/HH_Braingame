@@ -9,24 +9,30 @@ public class BGMManager : MonoBehaviour
     public static AudioClip BossDialogueBGM;
     public static AudioClip BossFightBGM;
     public static AudioClip VictoryBGM;
+    public static AudioClip MainMenuBGM;
 
-    public static BGMManager BGMInstance;
 
     private void Awake()
     {
         Audio = GetComponent<AudioSource>();
+
         DefaultBGM = Resources.Load<AudioClip>("Audio/DefaultBGM");
         BossDialogueBGM = Resources.Load<AudioClip>("Audio/BossDialogueBGM");
         BossFightBGM = Resources.Load<AudioClip>("Audio/BossFightBGM");
         VictoryBGM = Resources.Load<AudioClip>("Audio/VictoryBGM");
+        MainMenuBGM = Resources.Load<AudioClip>("Audio/MainMenuTheme");
 
-        if (BGMInstance != null && BGMInstance != this)
+
+        int numBgmPlayers = FindObjectsOfType<BGMManager>().Length;
+        if (numBgmPlayers != 1)
         {
             Destroy(this.gameObject);
-            return;
         }
-
-        DontDestroyOnLoad(this);
+  
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public static void TurnVolumeDown()
@@ -53,6 +59,9 @@ public class BGMManager : MonoBehaviour
                 break;
             case "BossFight":
                 Audio.clip = BossFightBGM;
+                break;
+            case "MainMenu":
+                Audio.clip = MainMenuBGM;
                 break;
             case "VictoryBGM":
                 Audio.clip = null;

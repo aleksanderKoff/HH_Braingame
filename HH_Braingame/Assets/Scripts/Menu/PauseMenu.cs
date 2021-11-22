@@ -48,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         Debug.Log("Loading Menu...");
         SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
+        BGMManager.ChangeBgm("MainMenu");
     }
 
     public void QuitGame()
