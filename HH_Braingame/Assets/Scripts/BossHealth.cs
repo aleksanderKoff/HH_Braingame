@@ -9,6 +9,7 @@ public class BossHealth : MonoBehaviour
     public Slider boss_health_slider;
     BossHealth boss_health;
     GameObject boss;
+    GameObject player;
     GameObject spawner;
     GameObject grid;
     HydrationManager hydration;
@@ -25,6 +26,7 @@ public class BossHealth : MonoBehaviour
         spawner = GameObject.Find("ProjectileSpawner");
         grid = GameObject.Find("BossGrid");
         hydration = GameObject.Find("Hydration").GetComponent<HydrationManager>();
+        player = GameObject.Find("Player");
         killed = false;
     }
 
@@ -33,6 +35,7 @@ public class BossHealth : MonoBehaviour
     {
         boss_health_slider.value = health;
         Kill();
+        ResetHealth();
     }
 
 
@@ -47,6 +50,13 @@ public class BossHealth : MonoBehaviour
         if (other.tag == "Projectile")
         {
             ReduceHealth();
+        }
+    }
+    void ResetHealth()
+    {
+        if (player.transform.position.x < 500f)
+        {
+            health = 100f;
         }
     }
     void Kill()
