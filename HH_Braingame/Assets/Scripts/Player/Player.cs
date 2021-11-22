@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    GameMaster gameMaster;
+
     ControllerCamera camControl;
     drop_projectile dropProjectile;
     BossHealth boss;
@@ -21,18 +23,23 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        camControl = GameObject.Find("Camera").GetComponent<ControllerCamera>();
-        dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
+        if (GameObject.Find("GameMaster").GetComponent<GameMaster>())
+        {
+            gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
 
-        bossClicker = GameObject.Find("Camera").GetComponent<BossClicker>();
-        clicker = GameObject.Find("Camera").GetComponent<Clicker>();
-        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
-        playerLocation = playerPosition;
-        respawnLocation = respawnPoint;
-        bossGrid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
-        cam = Camera.main;
-        if (GameObject.Find("DestroyProjectile")) { 
-            boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
+            camControl = gameMaster.CamControl;
+            dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
+
+            bossClicker = GameObject.Find("Camera").GetComponent<BossClicker>();
+            clicker = GameObject.Find("Camera").GetComponent<Clicker>();
+            hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
+            playerLocation = playerPosition;
+            respawnLocation = respawnPoint;
+            bossGrid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
+            cam = Camera.main;
+            if (GameObject.Find("DestroyProjectile")) { 
+                boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
+            }
         }
     }
 
