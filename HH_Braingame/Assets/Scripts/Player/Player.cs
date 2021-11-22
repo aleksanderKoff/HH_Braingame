@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     drop_projectile dropProjectile;
     BossHealth boss;
     BossGrid bossGrid;
+    BossClicker bossClicker;
+    Clicker clicker;
     public Slider bossHealth;
     private Camera cam;
     [SerializeField] public Transform playerPosition;
@@ -22,6 +24,8 @@ public class Player : MonoBehaviour
         camControl = GameObject.Find("Camera").GetComponent<ControllerCamera>();
         dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
 
+        bossClicker = GameObject.Find("Camera").GetComponent<BossClicker>();
+        clicker = GameObject.Find("Camera").GetComponent<Clicker>();
         hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
         playerLocation = playerPosition;
         respawnLocation = respawnPoint;
@@ -42,9 +46,10 @@ public class Player : MonoBehaviour
             hydrationManager.time = 15;
             camControl.enabled = true;
             dropProjectile.enabled = false;
-            bossHealth.value = 100;
             bossHealth.gameObject.SetActive(false);
             bossGrid.enabled = false;
+            bossClicker.enabled = false;
+            clicker.enabled = true;
 
             gameObject.GetComponent<PlayerMovement> ().enabled = true;
             cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 6f, 2f);
