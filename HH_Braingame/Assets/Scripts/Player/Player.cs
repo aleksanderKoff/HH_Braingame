@@ -22,25 +22,23 @@ public class Player : MonoBehaviour
     HydrationManager hydrationManager;
 
     void Start()
-    {
-        if (GameObject.Find("GameMaster").GetComponent<GameMaster>())
-        {
-            gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+    { 
+            gameMaster = GameObject.Find("GameMaster")?.GetComponent<GameMaster>();
 
             camControl = gameMaster.CamControl;
-            dropProjectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
+            dropProjectile = GameObject.Find("ProjectileSpawner")?.GetComponent<drop_projectile>();
 
-            bossClicker = GameObject.Find("Camera").GetComponent<BossClicker>();
-            clicker = GameObject.Find("Camera").GetComponent<Clicker>();
-            hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
+            bossClicker = GameObject.Find("Camera")?.GetComponent<BossClicker>();
+            clicker = GameObject.Find("Camera")?.GetComponent<Clicker>();
+            hydrationManager = GameObject.Find("Hydration")?.GetComponent<HydrationManager>();
             playerLocation = playerPosition;
             respawnLocation = respawnPoint;
-            bossGrid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
+            bossGrid = GameObject.Find("BossGrid")?.GetComponent<BossGrid>();
             cam = Camera.main;
             if (GameObject.Find("DestroyProjectile")) { 
                 boss = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
             }
-        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
