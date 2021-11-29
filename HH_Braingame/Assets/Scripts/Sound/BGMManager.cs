@@ -11,9 +11,22 @@ public class BGMManager : MonoBehaviour
     public static AudioClip VictoryBGM;
     public static AudioClip MainMenuBGM;
 
+    public static BGMManager BgmInstance;
+    public static BGMManager Instance => BgmInstance ?? (BgmInstance = new GameObject("AudioManager", typeof(BGMManager)).GetComponent<BGMManager>());
+
 
     private void Awake()
     {
+       
+        if (BgmInstance == null)
+            BgmInstance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+
         Audio = GetComponent<AudioSource>();
 
         DefaultBGM = Resources.Load<AudioClip>("Audio/DefaultBGM");
@@ -21,18 +34,6 @@ public class BGMManager : MonoBehaviour
         BossFightBGM = Resources.Load<AudioClip>("Audio/BossFightBGM");
         VictoryBGM = Resources.Load<AudioClip>("Audio/VictoryBGM");
         MainMenuBGM = Resources.Load<AudioClip>("Audio/MainMenuTheme");
-
-
-        int numBgmPlayers = FindObjectsOfType<BGMManager>().Length;
-        if (numBgmPlayers != 1)
-        {
-            Destroy(this.gameObject);
-        }
-  
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
     }
 
     public static void TurnVolumeDown()
