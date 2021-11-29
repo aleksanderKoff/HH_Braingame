@@ -7,13 +7,12 @@ using UnityEngine.SceneManagement;
 public class MenuSelection : MonoBehaviour
 
 {
-    private string[] menuStates = new string[] { "new game", "options" };
+    private string[] menuStates = new string[] { "new game", "options", "quit" };
     private string[] optionsMenuStates = new string[] {"bgm volume", "sfx volume", "resolution" };
     private int selected = 0;
     
     Resolution[] resolutions;
     int resolutionIndex;
-
 
     GameObject player;
     PlayerMovement pm;
@@ -23,10 +22,12 @@ public class MenuSelection : MonoBehaviour
     private string ActiveMenuState;
     private bool MouseIsOnMenuItems;
     private bool MenuIsFunctional;
+   
     private GameObject arrowPointer;
-
     private GameObject VolumeMenu;
     private GameObject DefaultMenu;
+
+    private string ArrowPath = "/Canvas/Arrow";
 
     void Start()
     {
@@ -49,8 +50,7 @@ public class MenuSelection : MonoBehaviour
         VolumeMenu.SetActive(false);
 
         DefaultMenu = GameObject.Find("Canvas/DefaultMenu");
-
-        
+       
         ActiveMenuState = "MainMenu";
         MouseIsOnMenuItems = false;
         MenuIsFunctional = true;
@@ -64,7 +64,6 @@ public class MenuSelection : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) && !ActiveMenuState.Equals("MainMenu"))
             StartCoroutine("ChangeScene");
-
     }
     private void ChangeMenuState()
     {
@@ -249,16 +248,14 @@ public class MenuSelection : MonoBehaviour
                 CurrentMenuState = menuStates[selected];
             else if (ActiveMenuState.Equals("Options"))
                 CurrentMenuState = optionsMenuStates[selected];            
-        }
-        
+        }       
     }
 
     private IEnumerator ChangeScene()
     {
         
         if (CurrentMenuState.Equals("new game"))
-        {
-       
+        {      
             SfxManager.PlaySound("MenuSuccess");
         
             pm.moveSpeed = 5;
@@ -288,17 +285,19 @@ public class MenuSelection : MonoBehaviour
             ActiveMenuState = "MainMenu";
             Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, true);
         }
+        else if (CurrentMenuState.Equals("quit"))
+        {
+            Debug.Log("Quitting game...");
+            Application.Quit();
+        }
     }
-
     private void DisplayVolume(float volume, string type)
     {
-
         GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
         Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
         GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
         Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
-
-       
+    
         switch (volume)
         {
             case 0:
@@ -338,11 +337,7 @@ public class MenuSelection : MonoBehaviour
                     VolumeDisplaySfx.text = "IIIII";
                 break;
         }
-        
-
-
     }
-
     private void AddVolumeDisplayed(string type)
     {
         GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
@@ -383,7 +378,6 @@ public class MenuSelection : MonoBehaviour
 
     private void ResetVolumeDisplayedToFull(string type)
     {
-
         GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
         Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
         GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
