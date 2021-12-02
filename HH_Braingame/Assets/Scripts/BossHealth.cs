@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    public float health = 0;
+    public static float health = 100f;
     public Slider boss_health_slider;
     BossHealth boss_health;
     GameObject boss;
@@ -35,9 +35,7 @@ public class BossHealth : MonoBehaviour
     {
         boss_health_slider.value = health;
         Kill();
-        ResetHealth();
     }
-
 
 
     public void ReduceHealth()
@@ -52,16 +50,13 @@ public class BossHealth : MonoBehaviour
             ReduceHealth();
         }
     }
-    void ResetHealth()
+    public static void ResetHealth()
     {
-        if (player.transform.position.x < 500f)
-        {
             health = 100f;
-        }
     }
     void Kill()
     {
-        if (boss_health.health == 0f && boss_health && killed == false)
+        if (BossHealth.health == 0f && boss_health && killed == false)
         {
             Destroy(spawner);
             Destroy(grid);

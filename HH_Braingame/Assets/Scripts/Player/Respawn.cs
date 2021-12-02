@@ -38,6 +38,7 @@ public class Respawn : MonoBehaviour
         // Changes player position to respawn position (moves player)
         Player.playerLocation.transform.position = new Vector3(Player.respawnLocation.transform.position.x, Player.respawnLocation.transform.position.y, Player.playerLocation.transform.position.z);
         BGMManager.ChangeBgm("Default");
+        BossHealth.ResetHealth();
     }
 
 }
