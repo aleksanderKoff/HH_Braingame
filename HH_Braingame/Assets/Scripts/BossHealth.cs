@@ -42,7 +42,7 @@ public class BossHealth : MonoBehaviour
 
     public void ReduceHealth()
     {
-        health = health - 20f;
+        health = health - 5f;
     }
 
     void OnTriggerEnter2D(Collider2D other)
