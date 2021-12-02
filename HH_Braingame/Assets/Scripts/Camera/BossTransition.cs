@@ -6,12 +6,14 @@ public class BossTransition : MonoBehaviour
 {
     private Camera cam;
     private Vector3 targetPos;
+    private GameObject manager;
     public float transitionDuration = 2.5f;
     private float bossCameraSize;
 
     void Start()
     {
         cam = Camera.main;
+        manager = GameObject.Find("BGManager");
         bossCameraSize = 8f;
     }
 
@@ -37,7 +39,9 @@ public class BossTransition : MonoBehaviour
     {
         if (other.tag == "FreezeCam")
         {
+            if(manager)
             BGMManager.ChangeBgm("BossDialogue");
+
             StartCoroutine(Transition());
         }
     }
