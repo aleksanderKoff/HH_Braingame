@@ -41,10 +41,10 @@ public class MenuSelection : MonoBehaviour
         arrowPointer = GameObject.Find("/Canvas/Arrow");
         ArrowInitialPosition = arrowPointer.transform.position;
 
-        DisplayVolume(BGMManager.Audio.volume, "bgm");
-        DisplayVolume(BGMManager.Audio.volume, "sfx");
+        MenuVolume.DisplayVolume(BGMManager.Audio.volume, "bgm");
+        MenuVolume.DisplayVolume(BGMManager.Audio.volume, "sfx");
 
-        ShowFirstResolution();
+        MenuResolution.ShowFirstResolution();
 
         VolumeMenu = GameObject.Find("/Canvas/VolumeMenu");
         VolumeMenu.SetActive(false);
@@ -156,12 +156,12 @@ public class MenuSelection : MonoBehaviour
                         if (BGMManager.Audio.volume < 1)
                         {
                             BGMManager.TurnVolumeUp();
-                            AddVolumeDisplayed("bgm");
+                            MenuVolume.AddVolumeDisplayed("bgm");
                         }
                         else
                         {
                             BGMManager.Audio.volume = 0;
-                            ResetVolumeDisplayedToZero("bgm");
+                            MenuVolume.ResetVolumeDisplayedToZero("bgm");
                         }
                         SfxManager.PlaySound("MenuMove");
                     }
@@ -170,13 +170,14 @@ public class MenuSelection : MonoBehaviour
                         if (SfxManager.Audio.volume < 1)
                         {
                             SfxManager.TurnVolumeUp();
-                            AddVolumeDisplayed("sfx");
+                            MenuVolume.AddVolumeDisplayed("sfx");
+
                         }
 
                         else
                         {
                             SfxManager.Audio.volume = 0;
-                            ResetVolumeDisplayedToZero("sfx");
+                            MenuVolume.ResetVolumeDisplayedToZero("sfx");
                         }
                         SfxManager.PlaySound("MenuMove");
                     }
@@ -184,11 +185,11 @@ public class MenuSelection : MonoBehaviour
                     {
                         if(resolutionIndex < resolutions.Length - 1)
                         {
-                            ShowNextResolution();
+                            MenuResolution.ShowNextResolution();
                         }
                         else
                         {
-                            ShowFirstResolution();
+                            MenuResolution.ShowFirstResolution();
                         }
 
                         SfxManager.PlaySound("MenuMove");
@@ -203,12 +204,12 @@ public class MenuSelection : MonoBehaviour
                         if (BGMManager.Audio.volume > 0)
                         {
                             BGMManager.TurnVolumeDown();
-                            ReduceVolumeDisplayed("bgm");
+                            MenuVolume.ReduceVolumeDisplayed("bgm");
                         }
                         else
                         {
                             BGMManager.Audio.volume = 1;
-                            ResetVolumeDisplayedToFull("bgm");
+                            MenuVolume.ResetVolumeDisplayedToFull("bgm");
                         }
 
                         SfxManager.PlaySound("MenuMove");
@@ -218,12 +219,12 @@ public class MenuSelection : MonoBehaviour
                         if (SfxManager.Audio.volume > 0)
                         {
                             SfxManager.TurnVolumeDown();
-                            ReduceVolumeDisplayed("sfx");
+                            MenuVolume.ReduceVolumeDisplayed("sfx");
                         }
                         else
                         {
                             SfxManager.Audio.volume = 1;
-                            ResetVolumeDisplayedToFull("sfx");
+                            MenuVolume.ResetVolumeDisplayedToFull("sfx");
                         }
 
                         SfxManager.PlaySound("MenuMove");
@@ -233,11 +234,11 @@ public class MenuSelection : MonoBehaviour
                     {
                         if (resolutionIndex > 0)
                         {
-                            ShowPreviousResolution();
+                            MenuResolution.ShowPreviousResolution();
                         }
                         else
                         {
-                            ShowLastResolution();
+                            MenuResolution.ShowLastResolution();
                         }
                         SfxManager.PlaySound("MenuMove");
                     }
@@ -279,145 +280,16 @@ public class MenuSelection : MonoBehaviour
         {
             VolumeMenu.SetActive(false);
             DefaultMenu.SetActive(true);
-            arrowPointer.transform.position = ArrowInitialPosition;
             selected = 0;
             SfxManager.PlaySound("MenuMove");
             ActiveMenuState = "MainMenu";
             Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, true);
+            arrowPointer.transform.position = ArrowInitialPosition;
         }
         else if (CurrentMenuState.Equals("quit"))
         {
             Debug.Log("Quitting game...");
             Application.Quit();
         }
-    }
-    private void DisplayVolume(float volume, string type)
-    {
-        GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
-        Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
-        GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
-        Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
-    
-        switch (volume)
-        {
-            case 0:
-                if (type.Equals("bgm"))
-                    VolumeDisplayBgm.text = "";
-                else if (type.Equals("sfx"))
-                    VolumeDisplaySfx.text = "";
-                break;
-            case 0.2f:
-                if (type.Equals("bgm"))
-                    VolumeDisplayBgm.text = "I";
-                else if (type.Equals("sfx"))
-                    VolumeDisplaySfx.text = "I";
-                break;
-            case 0.4f:
-                if (type.Equals("bgm"))
-                    VolumeDisplayBgm.text = "II";
-                else if (type.Equals("sfx"))
-                    VolumeDisplaySfx.text = "II";
-                break;
-            case 0.6f:
-                if (type.Equals("bgm"))
-                    VolumeDisplayBgm.text = "III";
-                else if (type.Equals("sfx"))
-                    VolumeDisplaySfx.text = "III";
-                break;
-            case 0.8f:
-                if (type.Equals("bgm"))
-                    VolumeDisplayBgm.text = "IIII";
-                else if (type.Equals("sfx"))
-                    VolumeDisplaySfx.text = "IIII";
-                break;
-            case 1f:
-                if (type.Equals("bgm"))
-                    VolumeDisplayBgm.text = "IIIII";
-                else if (type.Equals("sfx"))
-                    VolumeDisplaySfx.text = "IIIII";
-                break;
-        }
-    }
-    private void AddVolumeDisplayed(string type)
-    {
-        GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
-        Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
-        GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
-        Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
-
-        if (type.Equals("bgm"))
-            VolumeDisplayBgm.text = VolumeDisplayBgm.text + "I";
-        else if (type.Equals("sfx"))
-            VolumeDisplaySfx.text = VolumeDisplaySfx.text + "I";
-    }
-
-    private void ReduceVolumeDisplayed(string type)
-    {
-        GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
-        Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
-        GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
-        Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
-
-        if (type.Equals("bgm"))
-            VolumeDisplayBgm.text = VolumeDisplayBgm.text.Remove(VolumeDisplayBgm.text.Length - 1, 1);
-        else if (type.Equals("sfx"))
-            VolumeDisplaySfx.text = VolumeDisplaySfx.text.Remove(VolumeDisplaySfx.text.Length - 1, 1);
-    }
-    private void ResetVolumeDisplayedToZero(string type) {
-
-        GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
-        Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
-        GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
-        Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
-
-        if (type.Equals("bgm"))
-            VolumeDisplayBgm.text = "";
-        else if (type.Equals("sfx"))
-            VolumeDisplaySfx.text = "";
-    }
-
-    private void ResetVolumeDisplayedToFull(string type)
-    {
-        GameObject bgmVolume = GameObject.Find("VolumeMenu/VolumeBGM");
-        Text VolumeDisplayBgm = bgmVolume.GetComponent<Text>();
-        GameObject sfxVolume = GameObject.Find("VolumeMenu/VolumeSFX");
-        Text VolumeDisplaySfx = sfxVolume.GetComponent<Text>();
-
-        if (type.Equals("bgm"))
-            VolumeDisplayBgm.text = "IIIII";
-        else if (type.Equals("sfx"))
-            VolumeDisplaySfx.text = "IIIII";
-    }
-    private void ShowNextResolution()
-    {
-        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
-        resolutionIndex++;
-        textComponent.text = ResToString(resolutions[resolutionIndex]);
-    }
-
-    private void ShowPreviousResolution()
-    {
-        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
-        resolutionIndex--;
-        textComponent.text = ResToString(resolutions[resolutionIndex]);
-    }
-
-    private void ShowFirstResolution()
-    {
-        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
-        resolutionIndex = 0;
-        textComponent.text = ResToString(resolutions[resolutionIndex]);
-    }
-
-    private void ShowLastResolution()
-    {
-        var textComponent = GameObject.Find("VolumeMenu/Resolution").GetComponent<Text>();
-        resolutionIndex = resolutions.Length - 1;
-        textComponent.text = ResToString(resolutions[resolutionIndex]);
-    }
-
-    string ResToString(Resolution res)
-    {
-        return res.width + "x" + res.height + " " + res.refreshRate + "hz";
     }
 }

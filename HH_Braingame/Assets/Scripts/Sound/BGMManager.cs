@@ -12,7 +12,7 @@ public class BGMManager : MonoBehaviour
     public static AudioClip MainMenuBGM;
 
     public static BGMManager BgmInstance;
-    public static BGMManager Instance => BgmInstance ?? (BgmInstance = new GameObject("AudioManager", typeof(BGMManager)).GetComponent<BGMManager>());
+
 
 
     private void Awake()

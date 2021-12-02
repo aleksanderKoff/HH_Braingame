@@ -14,25 +14,6 @@ public class SfxManager : MonoBehaviour
     public static SfxManager SfxInstance;
 
 
-    public static SfxManager Instance
-    {
-        get
-        {
-            // if exists directly return
-            if (SfxInstance) return SfxInstance;
-
-            // otherwise search it in the scene
-            SfxInstance = FindObjectOfType<SfxManager>();
-
-            // found it?
-            if (SfxInstance) return SfxInstance;
-
-            // otherwise create and initialize it
-            CreateInstance();
-
-            return SfxInstance;
-        }
-    }
 
 
     private void Awake()
@@ -54,16 +35,6 @@ public class SfxManager : MonoBehaviour
         MenuSuccessSfx = Resources.Load<AudioClip>("Audio/MenuSuccessSFX");
         CanHitSfx = Resources.Load<AudioClip>("Audio/CanSfx");
 
-    }
-
-
-    [RuntimeInitializeOnLoadMethod]
-    private static void CreateInstance()
-    {
-        // skip if already exists
-        if (SfxInstance) return;
-
-       new GameObject(nameof(SfxManager)).AddComponent<SfxManager>();
     }
 
 
