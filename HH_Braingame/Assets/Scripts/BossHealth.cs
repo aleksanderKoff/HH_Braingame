@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BossHealth : MonoBehaviour
 {
     public static float health = 100f;
+    public float reduceBossHealth = 5f;
     public Slider boss_health_slider;
     BossHealth boss_health;
     GameObject boss;
@@ -19,6 +20,7 @@ public class BossHealth : MonoBehaviour
 
     void Start()
     {
+        health = 100f;
         boss_health = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
         boss = GameObject.Find("HeadMaster");
         drop_projectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
@@ -38,9 +40,9 @@ public class BossHealth : MonoBehaviour
     }
 
 
-    public void ReduceHealth()
+    private void ReduceHealth()
     {
-        health = health - 5f;
+        health = health - reduceBossHealth;
     }
 
     void OnTriggerEnter2D(Collider2D other)
