@@ -49,27 +49,29 @@ public class BGMManager : MonoBehaviour
     public static void ChangeBgm(string bgmName)
     {
 
-        switch (bgmName)
-        {
-            case "Default":
-                Audio.clip = DefaultBGM;
-                break;
-            case "BossDialogue":
-                Audio.clip = BossDialogueBGM;
-                break;
-            case "BossFight":
-                Audio.clip = BossFightBGM;
-                break;
-            case "MainMenu":
-                Audio.clip = MainMenuBGM;
-                break;
-            case "VictoryBGM":
-                Audio.clip = null;
-                Audio.PlayOneShot(VictoryBGM);
-                break;
-        }
+        if (Audio && Audio.clip)    {
+            switch (bgmName)
+            {
+                case "Default":
+                    Audio.clip = DefaultBGM;
+                    break;
+                case "BossDialogue":
+                    Audio.clip = BossDialogueBGM;
+                    break;
+                case "BossFight":
+                    Audio.clip = BossFightBGM;
+                    break;
+                case "MainMenu":
+                    Audio.clip = MainMenuBGM;
+                    break;
+                case "VictoryBGM":
+                    Audio.clip = null;
+                    Audio.PlayOneShot(VictoryBGM);
+                    break;
+            }
 
-        Audio.Play();
+            Audio.Play();
+        }
 
 
     }
