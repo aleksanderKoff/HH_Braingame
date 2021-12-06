@@ -29,13 +29,13 @@ FL Studio
 
 ## Project Management
 #### Credits and Main Responsibilities
-**Samu Musta**: \
+**Samu Musta**: Reaction mechanics, Map design, Gameplay design
 **Aleksander Korolkoff**: Level design, reaction mechanics, clickable objects\
 **Nico Fager**: Art, music, main menu, UI\
 **Joonas Saarela**: Boss mechanics, reaction mechanics
 
 #### Project Responsibilities
-**Samu Musta**: \
+**Samu Musta**: Programming, Level design, Gameplay design
 **Aleksander Korolkoff**: Level designer, game mechanics, UI designer\
 **Nico Fager**: Art & Music design\
 **Joonas Saarela**:
