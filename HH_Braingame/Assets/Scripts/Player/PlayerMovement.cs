@@ -30,11 +30,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            Jump();
-        }
-
         if (Input.GetKeyDown(KeyCode.A) && SceneManager.GetActiveScene().name == "StartMenu")
         {
             Jump();

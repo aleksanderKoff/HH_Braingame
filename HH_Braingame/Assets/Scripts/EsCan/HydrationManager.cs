@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class HydrationManager : MonoBehaviour
 {
     [SerializeField] public Text hydration;
+    public float addHydrationValue = 1;
     public float time = 15;
     public float drainScale = 1f;
     HydrationManager hydrationManager;
@@ -37,9 +38,9 @@ public class HydrationManager : MonoBehaviour
             }
         }
         // Prevent hydration bar from going above 15(max)
-        if(time > 15)
+        if(time > 18)
         {
-            time = 15;
+            time = 18;
         }
 
         DisplayTime(time);
@@ -48,7 +49,7 @@ public class HydrationManager : MonoBehaviour
     public void addToHydration()
     {
         // Adds time onto the timer
-        time += 2;
+        time += addHydrationValue;
         cancounter += 1;
     }
 

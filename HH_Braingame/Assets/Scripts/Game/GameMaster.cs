@@ -10,8 +10,15 @@ public class GameMaster : MonoBehaviour
     private DisplayChallenge display;
     private ControllerCamera camControl;
     private drop_projectile dropProjectile;
+    private Clicker clicker;
+    private HydrationManager hydrationManager;
+    private PlayerMovement playerMovement;
+    private Player player;
+    private Respawn respawn;
 
-    GameObject boss;
+    private BossGrid bossGrid;
+    private BossClicker bossClicker;
+    private BossHealth bossHealth;
 
     private Button button1;
     private Button button2;
@@ -24,12 +31,18 @@ public class GameMaster : MonoBehaviour
     public Button Button1 { get => button1; set => button1 = value; }
     public Button Button2 { get => button2; set => button2 = value; }
     public Button Button3 { get => button3; set => button3 = value; }
-    
-    
+    public BossClicker BossClicker { get => bossClicker; set => bossClicker = value; }
+    public Clicker Clicker { get => clicker; set => clicker = value; }
+    public HydrationManager HydrationManager { get => hydrationManager; set => hydrationManager = value; }
+    public BossGrid BossGrid { get => bossGrid; set => bossGrid = value; }
+    public BossHealth BossHealth { get => bossHealth; set => bossHealth = value; }
+    public PlayerMovement PlayerMovement { get => playerMovement; set => playerMovement = value; }
+    public Player Player { get => player; set => player = value; }
+    public Respawn Respawn { get => respawn; set => respawn = value; }
+
     void Awake()
     {
         InitComponents();
-        
     }
 
     void InitComponents()
@@ -40,8 +53,15 @@ public class GameMaster : MonoBehaviour
         Display = GameObject.FindGameObjectWithTag("Player")?.GetComponent<DisplayChallenge>();
         CamControl = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<ControllerCamera>();
         DropProjectile = GameObject.Find("ProjectileSpawner")?.GetComponent<drop_projectile>();
+        Clicker = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<Clicker>();
+        HydrationManager = GameObject.Find("Hydration")?.GetComponent<HydrationManager>();
+        PlayerMovement = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMovement>();
+        Player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
+        Respawn = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Respawn>();
 
-        boss = GameObject.Find("HeadMaster");
+        BossGrid = GameObject.Find("BossGrid")?.GetComponent<BossGrid>();
+        BossClicker = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<BossClicker>();
+        BossHealth = GameObject.Find("DestroyProjectile")?.GetComponent<BossHealth>();
 
         Button1 = GameObject.Find("Button")?.GetComponent<Button>();
         Button2 = GameObject.Find("Button (1)")?.GetComponent<Button>();

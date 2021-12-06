@@ -60,7 +60,7 @@ public class BossHealth : MonoBehaviour
     }
     void Kill()
     {
-        if (BossHealth.health == 0f && boss_health && killed == false)
+        if (health <= 0f && boss_health && killed == false)
         {
             drop_projectile.enabled = false;
             bossGrid.enabled = false;

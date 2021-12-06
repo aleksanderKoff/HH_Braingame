@@ -1,17 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Respawn : MonoBehaviour
 {
     Player player;
-    HydrationManager hydrationManager;
     public int fallBoundary = -20;
+
+    GameMaster gameMaster;
+
+    ControllerCamera camControl;
+    drop_projectile dropProjectile;
+    BossClicker bossClicker;
+    Clicker clicker;
+    HydrationManager hydrationManager;
+    BossGrid bossGrid;
+    Camera cam;
+    public Slider bossHealth;
+    PlayerMovement playerMovement;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
+        gameMaster = GameObject.Find("GameMaster")?.GetComponent<GameMaster>();
+
+        player = gameMaster.Player;
+        hydrationManager = gameMaster.HydrationManager;
+        camControl = gameMaster.CamControl;
+        dropProjectile = gameMaster.DropProjectile;
+        bossClicker = gameMaster.BossClicker;
+        clicker = gameMaster.Clicker;
+        hydrationManager = gameMaster.HydrationManager;
+        bossGrid = gameMaster.BossGrid;
+        cam = Camera.main;
+        playerMovement = gameMaster.PlayerMovement;
     }
 
     void Update()
@@ -33,10 +55,26 @@ public class Respawn : MonoBehaviour
         }
     }
 
-    public static void RespawnPlayer()
+    public void RespawnPlayer()
     {
         // Changes player position to respawn position (moves player)
-        Player.playerLocation.transform.position = new Vector3(Player.respawnLocation.transform.position.x, Player.respawnLocation.transform.position.y, Player.playerLocation.transform.position.z);
+        Player.playerLocation.transform.position = new Vector3(
+            Player.respawnLocation.transform.position.x, 
+            Player.respawnLocation.transform.position.y, 
+            Player.playerLocation.transform.position.z
+        );
+
+        hydrationManager.time = 15;
+        camControl.enabled = true;
+        dropProjectile.enabled = false;
+        bossHealth.gameObject.SetActive(false);
+        bossGrid.enabled = false;
+        bossClicker.enabled = false;
+        clicker.enabled = true;
+        playerMovement.enabled = true;
+
+        cam.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 6f, 2f);
+
         BGMManager.ChangeBgm("Default");
         BossHealth.ResetHealth();
     }

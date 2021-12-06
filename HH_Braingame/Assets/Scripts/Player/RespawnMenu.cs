@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RespawnMenu : MonoBehaviour
 {
+    GameMaster gameMaster;
+    Respawn respawn;
     public static bool GameIsPaused = false;
     public GameObject respawnUI;
     public static GameObject respawnMenu;
@@ -12,13 +14,16 @@ public class RespawnMenu : MonoBehaviour
 
     private void Start()
     {
+        gameMaster = GameObject.Find("GameMaster")?.GetComponent<GameMaster>();
+
+        respawn = gameMaster.Respawn;
         respawnMenu = respawnUI;
         playerHide = player;
     }
-    public static void Resume()
+    public void Resume()
     {
         playerHide.SetActive(true);
-        Respawn.RespawnPlayer();
+        respawn.RespawnPlayer();
         respawnMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
