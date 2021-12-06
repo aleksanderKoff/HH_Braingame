@@ -94,7 +94,7 @@ public class ReactionProblem : MonoBehaviour
         return keyCode;
     }
     // Hide Button objects(1, 2, 3)
-    void ButtonSetFalse(Button a, Button b, Button c)
+    public void ButtonSetFalse(Button a, Button b, Button c)
     {
         a.gameObject.SetActive(false);
         b.gameObject.SetActive(false);

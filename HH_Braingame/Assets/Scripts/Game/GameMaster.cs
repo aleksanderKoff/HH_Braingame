@@ -15,6 +15,7 @@ public class GameMaster : MonoBehaviour
     private PlayerMovement playerMovement;
     private Player player;
     private Respawn respawn;
+    private ReactionProblem reactionProblem;
 
     private BossGrid bossGrid;
     private BossClicker bossClicker;
@@ -39,6 +40,7 @@ public class GameMaster : MonoBehaviour
     public PlayerMovement PlayerMovement { get => playerMovement; set => playerMovement = value; }
     public Player Player { get => player; set => player = value; }
     public Respawn Respawn { get => respawn; set => respawn = value; }
+    public ReactionProblem ReactionProblem { get => reactionProblem; set => reactionProblem = value; }
 
     void Awake()
     {
@@ -51,13 +53,14 @@ public class GameMaster : MonoBehaviour
         
         Move = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMovement>();
         Display = GameObject.FindGameObjectWithTag("Player")?.GetComponent<DisplayChallenge>();
-        CamControl = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<ControllerCamera>();
-        DropProjectile = GameObject.Find("ProjectileSpawner")?.GetComponent<drop_projectile>();
-        Clicker = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<Clicker>();
-        HydrationManager = GameObject.Find("Hydration")?.GetComponent<HydrationManager>();
         PlayerMovement = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMovement>();
         Player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
         Respawn = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Respawn>();
+        ReactionProblem = GameObject.FindGameObjectWithTag("Player")?.GetComponent<ReactionProblem>();
+        CamControl = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<ControllerCamera>();
+        Clicker = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<Clicker>();
+        DropProjectile = GameObject.Find("ProjectileSpawner")?.GetComponent<drop_projectile>();
+        HydrationManager = GameObject.Find("Hydration")?.GetComponent<HydrationManager>();
 
         BossGrid = GameObject.Find("BossGrid")?.GetComponent<BossGrid>();
         BossClicker = GameObject.FindGameObjectWithTag("MainCamera")?.GetComponent<BossClicker>();

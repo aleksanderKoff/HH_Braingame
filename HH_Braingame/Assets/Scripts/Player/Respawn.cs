@@ -10,6 +10,11 @@ public class Respawn : MonoBehaviour
 
     GameMaster gameMaster;
 
+    Button button1;
+    Button button2;
+    Button button3;
+
+    ReactionProblem reactionProblem;
     ControllerCamera camControl;
     drop_projectile dropProjectile;
     BossClicker bossClicker;
@@ -23,6 +28,12 @@ public class Respawn : MonoBehaviour
     void Start()
     {
         gameMaster = GameObject.Find("GameMaster")?.GetComponent<GameMaster>();
+
+        button1 = gameMaster.Button1;
+        button2 = gameMaster.Button2;
+        button3 = gameMaster.Button3;
+
+        reactionProblem = gameMaster.ReactionProblem;
 
         player = gameMaster.Player;
         hydrationManager = gameMaster.HydrationManager;
@@ -63,6 +74,8 @@ public class Respawn : MonoBehaviour
             Player.respawnLocation.transform.position.y, 
             Player.playerLocation.transform.position.z
         );
+
+        reactionProblem.ButtonSetFalse(button1, button2, button3);
 
         hydrationManager.time = 15;
         camControl.enabled = true;
