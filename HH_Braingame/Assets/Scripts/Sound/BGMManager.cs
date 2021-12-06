@@ -12,9 +12,7 @@ public class BGMManager : MonoBehaviour
     public static AudioClip MainMenuBGM;
 
     public static BGMManager BgmInstance;
-
-
-
+  
     private void Awake()
     {
        
@@ -66,8 +64,8 @@ public class BGMManager : MonoBehaviour
                     Audio.clip = MainMenuBGM;
                     break;
                 case "VictoryBGM":
-                    Audio.clip = null;
-                    Audio.PlayOneShot(VictoryBGM);
+                    Audio.clip = VictoryBGM;
+                    Audio.loop = false;
                     break;
             }
 

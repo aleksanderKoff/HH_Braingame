@@ -32,8 +32,8 @@ public class MenuSelection : MonoBehaviour
 
     void Start()
     {
-       
 
+        BGMManager.ChangeBgm("MainMenu");
         player = GameObject.Find("Player");
         pm = player.GetComponent<PlayerMovement>();
         pm.moveSpeed = 0;

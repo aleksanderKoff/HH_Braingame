@@ -21,8 +21,8 @@ public class VictoryMenu : MonoBehaviour
     public void LoadMenu()
     {
         Debug.Log("Loading Menu...");
-        SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
         BGMManager.ChangeBgm("MainMenu");
+        SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
     }
     public void LoadCredits()
     {
