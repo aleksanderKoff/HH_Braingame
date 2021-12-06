@@ -53,15 +53,19 @@ public class BGMManager : MonoBehaviour
             {
                 case "Default":
                     Audio.clip = DefaultBGM;
+                    Audio.loop = true;
                     break;
                 case "BossDialogue":
                     Audio.clip = BossDialogueBGM;
+                    Audio.loop = true;
                     break;
                 case "BossFight":
                     Audio.clip = BossFightBGM;
+                    Audio.loop = true;
                     break;
                 case "MainMenu":
                     Audio.clip = MainMenuBGM;
+                    Audio.loop = true;
                     break;
                 case "VictoryBGM":
                     Audio.clip = VictoryBGM;
