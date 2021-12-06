@@ -17,24 +17,6 @@ C# for all scripting\
 Adobe Illustrator\
 FL Studio
 
-## System requirements
-#### Minimum requirements:	Windows
-**Operating system**: version Windows 7 (SP1+), Windows 10 and Windows 11, 64-bit versions only\
-**CPU**:	X64 architecture with SSE2 instruction set support\
-**Graphics API**:	DX10, DX11, and DX12-capable GPUs\
-**Additional requirements**:	Hardware vendor officially supported drivers
-
-#### macOS
-**Operating system**: High Sierra 10.13+\
-**CPU**:	X64 architecture with SSE2 instruction set support\
-**Graphics API**:	Metal-capable Intel and AMD GPUs\
-**Additional requirements**:	Apple officially supported drivers
-
-#### Linux
-**Operating system**: Ubuntu 20.04, Ubuntu 18.04, and CentOS 7\
-**CPU**:	X64 architecture with SSE2 instruction set support\
-**Graphics API**:	OpenGL 3.2+ or Vulkan-capable, Nvidia and AMD GPUs\
-**Additional requirements**:	Gnome desktop environment running on top of X11 windowing system, Nvidia official proprietary graphics driver or AMD Mesa graphics driver. Other configuration and user environment as provided stock with the supported distribution (Kernel, Compositor, etc.)
 
 ## Project Management
 #### Credits and Main Responsibilities
@@ -53,6 +35,25 @@ FL Studio
 Menu music, main theme, victory music made by **Nico Fager**\
 Player, Boss, ESCan art made by **Nico Fager**\
 Sunnyland Free Asset pack by **Anzimus**
+
+## System requirements
+#### Minimum requirements:	Windows
+**Operating system**: version Windows 7 (SP1+), Windows 10 and Windows 11, 64-bit versions only\
+**CPU**:	X64 architecture with SSE2 instruction set support\
+**Graphics API**:	DX10, DX11, and DX12-capable GPUs\
+**Additional requirements**:	Hardware vendor officially supported drivers
+
+#### macOS
+**Operating system**: High Sierra 10.13+\
+**CPU**:	X64 architecture with SSE2 instruction set support\
+**Graphics API**:	Metal-capable Intel and AMD GPUs\
+**Additional requirements**:	Apple officially supported drivers
+
+#### Linux
+**Operating system**: Ubuntu 20.04, Ubuntu 18.04, and CentOS 7\
+**CPU**:	X64 architecture with SSE2 instruction set support\
+**Graphics API**:	OpenGL 3.2+ or Vulkan-capable, Nvidia and AMD GPUs\
+**Additional requirements**:	Gnome desktop environment running on top of X11 windowing system, Nvidia official proprietary graphics driver or AMD Mesa graphics driver. Other configuration and user environment as provided stock with the supported distribution (Kernel, Compositor, etc.)
 
 ## Getting started
 #### Installation
