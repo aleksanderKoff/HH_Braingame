@@ -6,8 +6,14 @@ using UnityEngine.SceneManagement;
 public class VictoryMenu : MonoBehaviour
 {
 
+    HydrationManager hydrationManager;
     public GameObject victoryMenuUI;
+    public GameObject creditsCanvas;
 
+    private void Start()
+    {
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
+    }
     public void LoadPanel()
     {
         victoryMenuUI.SetActive(true);
@@ -18,7 +24,13 @@ public class VictoryMenu : MonoBehaviour
         SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
         BGMManager.ChangeBgm("MainMenu");
     }
-
+    public void LoadCredits()
+    {
+        Debug.Log("Loading credits...");
+        creditsCanvas.SetActive(true);
+        victoryMenuUI.SetActive(false);
+        hydrationManager.enabled = false;
+    }
     public void QuitGame()
     {
         Debug.Log("Quitting game...");
