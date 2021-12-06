@@ -12,10 +12,13 @@ Jorma the Kid is once again late for school and is in dire need of your assistan
 
 ## Project details
 #### Technologies used:
-Unity\
-C#\
+Unity engine\
+C# for all scripting\
 Adobe Illustrator\
 FL Studio
+
+## System requirements
+
 
 ## Project Management
 #### Credits and Main Responsibilities
