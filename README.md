@@ -38,7 +38,7 @@ FL Studio
 **Samu Musta**: Programming, Level design, Gameplay design\
 **Aleksander Korolkoff**: Programming, Level design, Gameplay design, UI Design\
 **Nico Fager**: Art & Music design\
-**Joonas Saarela**:
+**Joonas Saarela**: Programming, Boss design, Gameplay design\
 
 ## Music & Art
 Menu music, main theme, victory music made by **Nico Fager**\
