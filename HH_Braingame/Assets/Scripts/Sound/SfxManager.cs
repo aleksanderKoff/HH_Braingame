@@ -13,9 +13,6 @@ public class SfxManager : MonoBehaviour
 
     public static SfxManager SfxInstance;
 
-
-
-
     private void Awake()
     {
 
@@ -36,8 +33,6 @@ public class SfxManager : MonoBehaviour
         CanHitSfx = Resources.Load<AudioClip>("Audio/CanSfx");
 
     }
-
-
     public static void TurnVolumeDown()
     {
         Audio.volume = Audio.volume - 0.2f;

@@ -18,7 +18,7 @@ public class MenuSelection : MonoBehaviour
     PlayerMovement pm;
 
     private Vector3 ArrowInitialPosition;
-    private string CurrentMenuState;
+    private string CurrentMenuItemState;
     private string ActiveMenuState;
     private bool MouseIsOnMenuItems;
     private bool MenuIsFunctional;
@@ -27,7 +27,6 @@ public class MenuSelection : MonoBehaviour
     private GameObject VolumeMenu;
     private GameObject DefaultMenu;
 
-    private string ArrowPath = "/Canvas/Arrow";
 
     Vector3 FirstMenuItemPosition;
     Vector3 SecondMenuItemPosition;
@@ -36,9 +35,7 @@ public class MenuSelection : MonoBehaviour
 
     void Start()
     {
-        FirstMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/NewGame").transform.position;
-        SecondMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/Options").transform.position;
-        ThirdMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/QuitGame").transform.position;
+       
 
         player = GameObject.Find("Player");
         pm = player.GetComponent<PlayerMovement>();
@@ -63,7 +60,7 @@ public class MenuSelection : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow));
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
             ChangeMenuState();
 
         if(Input.GetKeyDown(KeyCode.Return) || (MouseIsOnMenuItems && Input.GetMouseButtonDown(0)))
@@ -74,8 +71,23 @@ public class MenuSelection : MonoBehaviour
     }
     private void ChangeMenuState()
     {
-        float menuItemDifferenceX = FirstMenuItemPosition.y - SecondMenuItemPosition.y;
-        Vector3 OneStepDown = -(new Vector3(0, menuItemDifferenceX));
+        if (ActiveMenuState.Equals("MainMenu"))
+        {
+            FirstMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/NewGame").transform.position;
+            SecondMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/Options").transform.position;
+            ThirdMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/QuitGame").transform.position;
+        }
+        else
+        {
+            FirstMenuItemPosition = GameObject.Find("/Canvas/VolumeMenu/BGMVolumeText").transform.position;
+            SecondMenuItemPosition = GameObject.Find("/Canvas/VolumeMenu/SFXVolumeText").transform.position;
+            ThirdMenuItemPosition = GameObject.Find("/Canvas/VolumeMenu/Resolution").transform.position;
+        }
+
+        ArrowInitialPosition = GameObject.Find("/Canvas/ArrowInitialPosition").transform.position;
+
+        float menuItemDifferenceY = FirstMenuItemPosition.y - SecondMenuItemPosition.y;
+        Vector3 OneStepDown = -(new Vector3(0, menuItemDifferenceY));
         Vector3 OneStepUp = -OneStepDown;
         CurrentArrowPosition = arrowPointer.transform.position;
 
@@ -159,7 +171,7 @@ public class MenuSelection : MonoBehaviour
                 //Handle pressing right arrow
                 if (Input.GetKeyDown(KeyCode.RightArrow) && ActiveMenuState.Equals("Options"))
                 {
-                    if (CurrentMenuState.Equals("bgm volume"))
+                    if (CurrentMenuItemState.Equals("bgm volume"))
                     {
                         if (BGMManager.Audio.volume < 1)
                         {
@@ -173,7 +185,7 @@ public class MenuSelection : MonoBehaviour
                         }
                         SfxManager.PlaySound("MenuMove");
                     }
-                    else if (CurrentMenuState.Equals("sfx volume"))
+                    else if (CurrentMenuItemState.Equals("sfx volume"))
                     {
                         if (SfxManager.Audio.volume < 1)
                         {
@@ -189,7 +201,7 @@ public class MenuSelection : MonoBehaviour
                         }
                         SfxManager.PlaySound("MenuMove");
                     }
-                    else if(CurrentMenuState.Equals("resolution"))
+                    else if(CurrentMenuItemState.Equals("resolution"))
                     {
                                               
                             MenuResolution.ShowNextResolution();
@@ -200,7 +212,7 @@ public class MenuSelection : MonoBehaviour
                 //Handle pressing left arrow
                 if (Input.GetKeyDown(KeyCode.LeftArrow) && ActiveMenuState.Equals("Options"))
                 {
-                    if (CurrentMenuState.Equals("bgm volume"))
+                    if (CurrentMenuItemState.Equals("bgm volume"))
                     {
                         if (BGMManager.Audio.volume > 0)
                         {
@@ -215,7 +227,7 @@ public class MenuSelection : MonoBehaviour
 
                         SfxManager.PlaySound("MenuMove");
                     }
-                    else if (CurrentMenuState.Equals("sfx volume"))
+                    else if (CurrentMenuItemState.Equals("sfx volume"))
                     {
                         if (SfxManager.Audio.volume > 0)
                         {
@@ -231,7 +243,7 @@ public class MenuSelection : MonoBehaviour
                         SfxManager.PlaySound("MenuMove");
 
                     }
-                    else if (CurrentMenuState.Equals("resolution"))
+                    else if (CurrentMenuItemState.Equals("resolution"))
                     {
                         MenuResolution.ShowPreviousResolution();
                         SfxManager.PlaySound("MenuMove");
@@ -240,16 +252,16 @@ public class MenuSelection : MonoBehaviour
             }
             
             if (ActiveMenuState.Equals("MainMenu"))
-                CurrentMenuState = menuStates[selected];
+                CurrentMenuItemState = menuStates[selected];
             else if (ActiveMenuState.Equals("Options"))
-                CurrentMenuState = optionsMenuStates[selected];            
+                CurrentMenuItemState = optionsMenuStates[selected];            
         }       
     }
 
     private IEnumerator ChangeScene()
     {
         
-        if (CurrentMenuState.Equals("new game"))
+        if (CurrentMenuItemState.Equals("new game"))
         {      
             SfxManager.PlaySound("MenuSuccess");
         
@@ -261,17 +273,18 @@ public class MenuSelection : MonoBehaviour
             SceneManager.LoadScene("MainMap", LoadSceneMode.Single);
             BGMManager.ChangeBgm("Default");
         }
-        else if (CurrentMenuState.Equals("options"))
+        else if (CurrentMenuItemState.Equals("options"))
         {
             ActiveMenuState = "Options";
-            arrowPointer.transform.position = ArrowInitialPosition;
             selected = 0;
             DefaultMenu.SetActive(false);
             VolumeMenu.SetActive(true);
             SfxManager.PlaySound("MenuMove");
+           arrowPointer.transform.position = ArrowInitialPosition;
         }
         else if (ActiveMenuState.Equals("Options") && Input.GetKeyDown(KeyCode.Escape))
         {
+            ArrowInitialPosition = GameObject.Find("/Canvas/ArrowInitialPosition").transform.position;
             VolumeMenu.SetActive(false);
             DefaultMenu.SetActive(true);
             selected = 0;
@@ -279,10 +292,8 @@ public class MenuSelection : MonoBehaviour
             ActiveMenuState = "MainMenu";
             MenuResolution.SetNewResolution();
             arrowPointer.transform.position = ArrowInitialPosition;
-            
-
         }
-        else if (CurrentMenuState.Equals("quit"))
+        else if (CurrentMenuItemState.Equals("quit"))
         {
             Debug.Log("Quitting game...");
             Application.Quit();

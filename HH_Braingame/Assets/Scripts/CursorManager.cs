@@ -16,13 +16,6 @@ public class CursorManager : MonoBehaviour
         CursorHotspot = new Vector2(CursorTextureDefault.width / 2, CursorTextureDefault.height / 2);
         Cursor.SetCursor(CursorTextureDefault, CursorHotspot, CursorMode.Auto);
     }
-
-    
-    void Update()
-    {
-        
-    }
-
     public static void ChangeCursorColorHit()
     {
         Cursor.SetCursor(CursorTextureHit, CursorHotspot, CursorMode.Auto);
