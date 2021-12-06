@@ -11,9 +11,6 @@ public class MenuSelection : MonoBehaviour
     private string[] optionsMenuStates = new string[] {"bgm volume", "sfx volume", "resolution" };
     private int selected = 0;
     
-    Resolution[] resolutions;
-    int resolutionIndex;
-
     GameObject player;
     PlayerMovement pm;
 
@@ -22,7 +19,8 @@ public class MenuSelection : MonoBehaviour
     private string ActiveMenuState;
     private bool MouseIsOnMenuItems;
     private bool MenuIsFunctional;
-   
+
+
     private GameObject arrowPointer;
     private GameObject VolumeMenu;
     private GameObject DefaultMenu;
@@ -30,7 +28,6 @@ public class MenuSelection : MonoBehaviour
 
     Vector3 FirstMenuItemPosition;
     Vector3 SecondMenuItemPosition;
-    Vector3 ThirdMenuItemPosition;
     Vector3 CurrentArrowPosition;
 
     void Start()
@@ -57,6 +54,8 @@ public class MenuSelection : MonoBehaviour
         ActiveMenuState = "MainMenu";
         MouseIsOnMenuItems = false;
         MenuIsFunctional = true;
+
+        CurrentMenuItemState = menuStates[selected];
     }
     void Update()
     {
@@ -75,13 +74,11 @@ public class MenuSelection : MonoBehaviour
         {
             FirstMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/NewGame").transform.position;
             SecondMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/Options").transform.position;
-            ThirdMenuItemPosition = GameObject.Find("/Canvas/DefaultMenu/QuitGame").transform.position;
         }
         else
         {
             FirstMenuItemPosition = GameObject.Find("/Canvas/VolumeMenu/BGMVolumeText").transform.position;
             SecondMenuItemPosition = GameObject.Find("/Canvas/VolumeMenu/SFXVolumeText").transform.position;
-            ThirdMenuItemPosition = GameObject.Find("/Canvas/VolumeMenu/Resolution").transform.position;
         }
 
         ArrowInitialPosition = GameObject.Find("/Canvas/ArrowInitialPosition").transform.position;
