@@ -14,8 +14,9 @@ Jorma the Kid is once again late for school and is in dire need of your assistan
 **Main Game**
 
 **Left mouse button**: Pick up drinks for hydration\
-**Menu**: ESC\
-**Jump**: Random button shown on screen!\
+**Pause Menu**: ESC\
+**Jump**: Random button shown on screen! React fast!\
+**Boss Dodge**: Press the key illustrated on the falling textbook!
 
 
 ## Project details
