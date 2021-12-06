@@ -59,7 +59,9 @@ public class ReactionProblem : MonoBehaviour
         string[] abcArray;
         string[] result;
         // Lenght 15
-        abcArray = new string[] { "Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V", "B" }; 
+        abcArray = new string[] { "Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V", "B" };
+
+        List<string> draw = new List<string>();
 
         int arrLenghtAbc = abcArray.Length;
 
@@ -73,7 +75,7 @@ public class ReactionProblem : MonoBehaviour
         int randomValue = Random.Range(arrFirstIndex, maxRandom);
         int endValue = randomValue + lastTwoLetters;
 
-        List<string> draw = new List<string>();
+        draw.Clear();
 
         while (randomValue <= endValue)
         {
