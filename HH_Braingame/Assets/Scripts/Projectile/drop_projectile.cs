@@ -10,7 +10,7 @@ public class drop_projectile : MonoBehaviour
 
     public Transform drop_position;
 
-    public float projectile_interval = 2.0f;
+    public float projectile_interval = 1.0f;
 
     void Start()
     {

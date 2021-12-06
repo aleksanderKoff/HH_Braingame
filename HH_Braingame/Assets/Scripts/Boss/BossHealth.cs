@@ -5,21 +5,24 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    public float health = 0;
+    public static float health = 100f;
+    public float reduceBossHealth = 5f;
     public Slider boss_health_slider;
     BossHealth boss_health;
     GameObject boss;
     GameObject player;
     GameObject spawner;
     GameObject grid;
+    BossGrid bossGrid;
+    VictoryMenu victoryMenu;
     HydrationManager hydration;
-    [Tooltip("Victory text")]
-    public Text victory;
     drop_projectile drop_projectile;
     public bool killed;
 
     void Start()
     {
+        health = 100f;
+        bossGrid = GameObject.Find("BossGrid").GetComponent<BossGrid>();
         boss_health = GameObject.Find("DestroyProjectile").GetComponent<BossHealth>();
         boss = GameObject.Find("HeadMaster");
         drop_projectile = GameObject.Find("ProjectileSpawner").GetComponent<drop_projectile>();
@@ -27,6 +30,7 @@ public class BossHealth : MonoBehaviour
         grid = GameObject.Find("BossGrid");
         hydration = GameObject.Find("Hydration").GetComponent<HydrationManager>();
         player = GameObject.Find("Player");
+        victoryMenu = GameObject.Find("VictoryCanvas").GetComponent<VictoryMenu>();
         killed = false;
     }
 
@@ -35,14 +39,12 @@ public class BossHealth : MonoBehaviour
     {
         boss_health_slider.value = health;
         Kill();
-        ResetHealth();
     }
 
 
-
-    public void ReduceHealth()
+    private void ReduceHealth()
     {
-        health = health - 20f;
+        health = health - reduceBossHealth;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -52,20 +54,17 @@ public class BossHealth : MonoBehaviour
             ReduceHealth();
         }
     }
-    void ResetHealth()
+    public static void ResetHealth()
     {
-        if (player.transform.position.x < 500f)
-        {
             health = 100f;
-        }
     }
     void Kill()
     {
-        if (boss_health.health == 0f && boss_health && killed == false)
+        if (BossHealth.health == 0f && boss_health && killed == false)
         {
-            Destroy(spawner);
-            Destroy(grid);
-            victory.text = "Victory!";
+            drop_projectile.enabled = false;
+            bossGrid.enabled = false;
+            victoryMenu.LoadPanel();
             hydration.enabled = false;
             BGMManager.ChangeBgm("VictoryBGM");
             killed = true;

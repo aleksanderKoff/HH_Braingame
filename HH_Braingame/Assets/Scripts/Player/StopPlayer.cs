@@ -43,7 +43,7 @@ public class StopPlayer : MonoBehaviour
                     bossGrid.enabled = true;
                 }
                 bossHp.gameObject.SetActive(true);
-                if (projectile != null)
+                if (projectile)
                 {
                     projectile.GetComponent<DestroyProjectile>().enabled = true; //enable DestroyProjectile script
                     projectileDropper.enabled = true;

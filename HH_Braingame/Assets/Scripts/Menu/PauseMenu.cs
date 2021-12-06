@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        menuConfirmPanel = GameObject.Find("PauseMenuCanvas (1)").GetComponent<MenuConfirmPanel>();
+        menuConfirmPanel = GameObject.Find("PauseMenuCanvas").GetComponent<MenuConfirmPanel>();
     }
 
     void Update()

@@ -8,6 +8,7 @@ public class HydrationManager : MonoBehaviour
 {
     [SerializeField] public Text hydration;
     public float time = 15;
+    public float drainScale = 1f;
     HydrationManager hydrationManager;
     Player player;
     public float cancounter = 0;
@@ -24,7 +25,7 @@ public class HydrationManager : MonoBehaviour
         // Ticking down timer function for hydration
         if (time > 0)
         {
-            time -= Time.deltaTime;
+            time -= Time.deltaTime * drainScale;
         }
         // Player dies if timer runs out
         else

@@ -45,17 +45,19 @@ public class SfxManager : MonoBehaviour
 
     public static void PlaySound(string SoundName)
     {
-        switch(SoundName)
-        {
-            case "MenuMove":
-                Audio?.PlayOneShot(MenuMoveSfx);
-                break;
-            case "MenuSuccess":
-                Audio?.PlayOneShot(MenuSuccessSfx);
-                break;
-            case "CanHit":
-                Audio?.PlayOneShot(CanHitSfx);
-                break;
+        if (Audio) {
+            switch(SoundName)
+            {
+                case "MenuMove":
+                    Audio?.PlayOneShot(MenuMoveSfx);
+                    break;
+                case "MenuSuccess":
+                    Audio?.PlayOneShot(MenuSuccessSfx);
+                    break;
+                case "CanHit":
+                    Audio?.PlayOneShot(CanHitSfx);
+                    break;
+            }
         }
     }
 }
