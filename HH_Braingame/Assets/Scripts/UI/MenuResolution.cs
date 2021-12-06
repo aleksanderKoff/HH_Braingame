@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MenuResolution : MonoBehaviour
 {
@@ -27,9 +28,7 @@ public class MenuResolution : MonoBehaviour
         else 
             ShowFirstResolution();
 
-
     }
-
     public static void ShowPreviousResolution()
     {
         if (resolutionIndex > 0)
@@ -39,9 +38,7 @@ public class MenuResolution : MonoBehaviour
         }
         else 
             ShowLastResolution();
-
     }
-
     public static void ShowFirstResolution()
     {
         
@@ -54,11 +51,25 @@ public class MenuResolution : MonoBehaviour
         resolutionIndex = resolutions.Length - 1;
         textComponent.text = ResToString(resolutions[resolutionIndex]);
     }
-
     private static string ResToString(Resolution res)
     {
         return res.width + "x" + res.height + " " + res.refreshRate + "hz";
     }
- 
+    public static void SetNewResolution()
+    {
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, true);
+    }
+    
+    public static void ShowCurrentResolution()
+    {
+        List<string> reslist = new List<string>();
 
+        foreach(Resolution res in Screen.resolutions)
+        {
+            Screen.resolutions.ToList().ForEach(res => reslist.Add(res.ToString()));
+            resolutionIndex = Screen.resolutions.ToList().IndexOf(Screen.currentResolution);
+        }
+
+        textComponent.text = ResToString(Screen.currentResolution);
+    }
 }

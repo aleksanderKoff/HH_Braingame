@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     MenuConfirmPanel menuConfirmPanel;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    private float volume;
+  
 
     void Start()
     {
@@ -34,6 +36,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         menuConfirmPanel.disableConfirmation();
+        BGMManager.Audio.volume = volume;
     }
 
     public void Pause()
@@ -41,6 +44,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        volume = BGMManager.Audio.volume;
+        BGMManager.Audio.volume = 0.2f;
     }
 
     public void LoadMenu()
