@@ -1,4 +1,4 @@
-# HH_Braingame
+# Jorma the Game
 Braingame is a game made by 4 students for the Haaga-Helia UAS Software Project II course - SWD4TN024-3008.
 
 ## STORY
