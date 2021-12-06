@@ -36,4 +36,5 @@ FL Studio
 ## Music & Art
 Menu music, main theme, victory music made by **Nico Fager**\
 Player, Boss, ESCan art made by **Nico Fager**
+Sunnyland Free Asset pack by **Anzimus**
 
