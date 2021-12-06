@@ -5,6 +5,14 @@ is a game made with Unity by 4 students for the Haaga-Helia UAS Software Project
 Jorma the Kid is once again late for school and is in dire need of your assistance to make it to school! Jorma needs to jump across various pits and platforms while also keeping himself hydrated enough to not pass out on his commute.
 
 ## Controls
+**Main Menu**
+
+**Arrow buttons**: Move in menu\
+**Enter**: Choose\
+**Esc**: Go back
+
+**Main Game**
+
 **Left mouse button**: Pick up drinks for hydration\
 **Menu**: ESC\
 **Jump**: Random button shown on screen!\
