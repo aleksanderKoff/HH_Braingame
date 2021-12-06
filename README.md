@@ -1,5 +1,5 @@
 # Jorma the Game
-is a game made by 4 students for the Haaga-Helia UAS Software Project II course - SWD4TN024-3008.
+is a game made with Unity by 4 students for the Haaga-Helia UAS Software Project II course - SWD4TN024-3008.
 
 ## STORY
 Jorma the Kid is once again late for school and is in dire need of your assistance to make it to school! Jorma needs to jump across various pits and platforms while also keeping himself hydrated enough to not pass out on his commute.
