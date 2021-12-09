@@ -42,7 +42,7 @@ Trello
 **Joonas Saarela**: Programming, Boss design, Gameplay design
 
 ## Music & Art
-Menu music, main theme, victory music made by **Nico Fager**\
+Menu music, main theme, boss theme and victory music made by **Nico Fager**\
 Player, Boss, ESCan art made by **Nico Fager**\
 Sunnyland Free Asset pack by **Anzimus**
 
