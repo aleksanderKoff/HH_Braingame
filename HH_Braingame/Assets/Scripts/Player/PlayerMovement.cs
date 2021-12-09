@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    GameMaster gameMaster;
     public Rigidbody2D rb;
     public BoxCollider2D coll;
     float playerAngleZ = 0;
     public GameObject triggerSpot;
-    ReactionProblemCheck rpc;
+    ReactionProblem rp;
 
     bool jumpSuccess;
     public float timer = 1.75f;
@@ -25,8 +26,10 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        gameMaster = GameObject.Find("GameMaster")?.GetComponent<GameMaster>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        rp = gameMaster.ReactionProblem;
         
         if (SceneManager.GetActiveScene().name == "StartMenu")
             moveSpeed = 0;
@@ -51,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if (gameObject.tag == "Player" && other.gameObject.name == "TriggerSpot" && !jumpSuccess)
         {
             Debug.Log("COLLIDED");
-            StartCoroutine(rpc.CheckPress(timer));
+            StartCoroutine(rp.CheckPress(timer));
         }
 
         if (other.gameObject.name == "JumpSpot")

@@ -50,7 +50,7 @@ public class ReactionProblem : MonoBehaviour
         if (other.tag == "ReactionProblem" && gameObject.tag == "Player")
         {
             Debug.Log($"{gameObject.tag} detected!");
-            StartCoroutine(CheckPress1(timer));
+            StartCoroutine(CheckPress(timer));
         }
     }
 
@@ -106,7 +106,7 @@ public class ReactionProblem : MonoBehaviour
         b.gameObject.SetActive(true);
     }
 
-    IEnumerator CheckPress1(float timer)
+    public IEnumerator CheckPress(float timer)
     {
         // REFAKTOROI
         string[] ui_values = AbcRandomizer();
