@@ -15,36 +15,49 @@ public class SfxManager : MonoBehaviour
 
     private void Awake()
     {
-        Audio = GetComponent<AudioSource>();
 
-       MenuMoveSfx = Resources.Load<AudioClip>("Audio/MenuMoveSFX");       
-            
-       MenuSuccessSfx = Resources.Load<AudioClip>("Audio/MenuSuccessSFX");
-       CanHitSfx = Resources.Load<AudioClip>("Audio/CanSfx");
+        if (SfxInstance == null)
+            SfxInstance = this;
 
-        if (SfxInstance != null && SfxInstance != this)
+        else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
+        DontDestroyOnLoad(gameObject);
 
-        DontDestroyOnLoad(this);
+        Audio = GetComponent<AudioSource>();
 
+        MenuMoveSfx = Resources.Load<AudioClip>("Audio/MenuMoveSFX");
+        MenuSuccessSfx = Resources.Load<AudioClip>("Audio/MenuSuccessSFX");
+        CanHitSfx = Resources.Load<AudioClip>("Audio/CanSfx");
+
+    }
+    public static void TurnVolumeDown()
+    {
+        Audio.volume = Audio.volume - 0.2f;
+    }
+
+    public static void TurnVolumeUp()
+    {
+        Audio.volume = Audio.volume + 0.2f;
     }
 
     public static void PlaySound(string SoundName)
     {
-        switch(SoundName)
-        {
-            case "MenuMove":
-                Audio.PlayOneShot(MenuMoveSfx);
-                break;
-            case "MenuSuccess":
-                Audio.PlayOneShot(MenuSuccessSfx);
-                break;
-            case "CanHit":
-                Audio.PlayOneShot(CanHitSfx);
-                break;
+        if (Audio) {
+            switch(SoundName)
+            {
+                case "MenuMove":
+                    Audio?.PlayOneShot(MenuMoveSfx);
+                    break;
+                case "MenuSuccess":
+                    Audio?.PlayOneShot(MenuSuccessSfx);
+                    break;
+                case "CanHit":
+                    Audio?.PlayOneShot(CanHitSfx);
+                    break;
+            }
         }
     }
 }

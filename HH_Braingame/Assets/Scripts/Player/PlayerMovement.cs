@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public BoxCollider2D coll;
-
+    float playerAngleZ = 0;
     public GameObject triggerSpot;
     ReactionProblemCheck rpc;
 
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.A) && SceneManager.GetActiveScene().name == "StartMenu")
         {
             Jump();
         }
@@ -91,33 +91,42 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
+    // Turns character according to the surrounding area
     public void TurnCharacter()
     {
 
-        int layerMask = 1 << 8; //määrittää mikä layer otetaan mukaan layermaskiin joka annetaan Raycastille, tässä tapauksessa 'Platform'. raycast katsoo ainoastaan t�t� layeria sitten
+        int raycastLayer = 8;
+        int layerMask = 1 << raycastLayer;
+        double acceptableAngleDifferenceLimit = 0.05;
 
         RaycastHit2D frontSensor = Physics2D.Raycast(transform.position + new Vector3(0.7f, 0, 0), -transform.up, 2, layerMask);
         RaycastHit2D backSensor = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0, 0), -transform.up, 2, layerMask);
 
+        float angleFront = frontSensor.normal.x;
+        float angleBack = backSensor.normal.x;
 
-        if (frontSensor.normal.x > 0 && backSensor.normal.x > 0 && Mathf.Abs(frontSensor.normal.x - backSensor.normal.x) < 0.05)
-            angle = -Vector3.Angle(frontSensor.normal, new Vector3(0, 1, 0));
-        else if (frontSensor.normal.x < 0 && backSensor.normal.x < 0 && Mathf.Abs(frontSensor.normal.x - backSensor.normal.x) < 0.05)
-            angle = Vector3.Angle(frontSensor.normal, new Vector3(0, 1, 0));
+        if (angleFront > 0 && angleBack > 0 && CalculateAngleDifference(angleFront, angleBack) < acceptableAngleDifferenceLimit)
+            playerAngleZ = -Vector3.Angle(frontSensor.normal, new Vector3(0, 1, 0));
+        else if (angleFront < 0 && angleBack < 0 && CalculateAngleDifference(angleFront, angleBack) < acceptableAngleDifferenceLimit)
+            playerAngleZ = Vector3.Angle(frontSensor.normal, new Vector3(0, 1, 0));
 
-        if (angle <= 45 && angle >= -45)
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+        if (playerAngleZ <= 45 && playerAngleZ >= -45)
+            transform.rotation = Quaternion.Euler(0, 0, playerAngleZ);
+    }
 
-        //Vector3 forward = transform.TransformDirection(Vector3.forward) * 20;
-        //Debug.DrawRay(transform.position + new Vector3(0.7f, 0, 0), -transform.up, Color.red);
+    private float CalculateAngleDifference(float angleFront, float angleBack)
+    {
 
-        //Näillä saa näkyvän DrawRay:n jos haluaa alkaa vielä jotain debuggailemaan
+        float difference = Mathf.Abs(angleFront - angleBack);
+        return difference;
     }
 
     public void StopCharacter()
     {
         moveSpeed = 0;
     }
+
+
 
 
 }

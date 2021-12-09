@@ -1,22 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int fallBoundary = -20;
-    // Update is called once per frame
-    void Update()
+    GameMaster gameMaster;
+
+
+    BossHealth boss;
+
+    public Slider bossHealth;
+    public static Transform respawnLocation;
+    public static Transform playerLocation;
+    [SerializeField] public Transform playerPosition;
+    [SerializeField] public Transform respawnPoint;
+
+
+    void Start()
     {
-        if (transform.position.y <= fallBoundary)
-            GameMaster.KillPlayer(this);
-        
-    }
-    void OnTriggerEnter2D(Collider2D collision) //kill player if hit by projectile
-    {
-        if (collision.tag == "Projectile")
+        gameMaster = GameObject.Find("GameMaster")?.GetComponent<GameMaster>();
+
+        playerLocation = playerPosition;
+        respawnLocation = respawnPoint;
+
+        if (GameObject.Find("DestroyProjectile"))
         {
-            GameMaster.KillPlayer(this);
+            boss = gameMaster.BossHealth;
+        }
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        //kill player if hit by projectile
+        if (collision.tag == "Projectile" && gameObject && boss.killed == false)
+        {
+            RespawnMenu.Pause();
         }
     }
+
 }

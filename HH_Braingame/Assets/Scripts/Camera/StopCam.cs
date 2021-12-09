@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class StopCam : MonoBehaviour
 {
-    public GameObject Camera;
-    public Transform cam;
-    public float transitionDuration = 2.5f;
+    GameMaster gameMaster;
+    ControllerCamera camControl;
 
-    private Vector3 targetPos;
+    BossClicker bossClicker;
+    Clicker clicker;
+    HydrationManager hydrationManager;
 
+    void Start()
+    {
+        gameMaster = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameMaster>();
+
+        camControl = gameMaster.CamControl;
+
+        bossClicker = GameObject.Find("Camera").GetComponent<BossClicker>();
+        clicker = GameObject.Find("Camera").GetComponent<Clicker>();
+        hydrationManager = GameObject.Find("Hydration").GetComponent<HydrationManager>();
+        bossClicker.enabled = false;
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "FreezeCam")
         {
-            Camera.GetComponent<cameraController> ().enabled = false;
-            StartCoroutine(Transition());
+            camControl.enabled = false;
+            clicker.enabled = false;
+            hydrationManager.enabled = false;
+            bossClicker.enabled = true;
         }
     }
-
-    IEnumerator Transition()
-    {
-        float t = 0.0f;
-        Vector3 startingPos = Camera.transform.position;
-        targetPos = new Vector3(569.49f, -1.59f, -1f);
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime * (Time.timeScale/transitionDuration);
-            Camera.transform.position = Vector3.Lerp(startingPos, targetPos, t);
-            yield return 0;
-        }
-    }
-    
 }
